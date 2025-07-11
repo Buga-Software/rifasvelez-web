@@ -1,1 +1,15 @@
 @import "tailwindcss";
+
+:root {
+  font-family: 'red hat display', -apple-system, sans-serif;
+
+  --white-back: #ececec;
+  --primary: #EC016D;
+  --secondary: #FFEB54;
+  --green: #00AB52;
+}
+
+  *::selection {
+    background-color: var(--primary);
+    color: white;
+  }

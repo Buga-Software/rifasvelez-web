@@ -1,16 +1,10 @@
 ---
-import "../styles/global.css";
+import Layout from "../layouts/layout.astro";
+// import Nav from "../components/nav.astro";
+import Footer from "../components/footer.astro";
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Velez la tradicional de los bugueños</title>
-	</head>
-	<body>
-
-	</body>
-</html>
+<Layout title="Velez la tradicional de los bugueños">
+  <!-- <Nav /> -->
+  <Footer />
+</Layout>
