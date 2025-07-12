@@ -1,0 +1,50 @@
+---
+// Se le pide la ruta actual a Astro
+const { pathname } = new URL(Astro.request.url);
+
+// Para optimizar codigo y estilos
+const navItems = [
+  { href: '/', label: 'Inicio' },
+  { href: '/ganadores', label: 'Ganadores' },
+  { href: '/sorteos', label: 'Sorteos' },
+  { href: '/se-vendedor', label: 'Sé vendedor!' }
+];
+---
+
+<nav class="flex flex-col lg:flex-row lg:items-center justify-between w-full px-8 py-5 bg-white rounded-3xl font-bold text-[var(--primary)]">
+  <div class="flex justify-between">
+    <img class="w-30" src="/assets/velez.png" alt="Logo de Velez la tradicional de los bugueños">
+    <button class="lg:hidden" id="toggle">
+    // Al presionar el boton un svg se oculta y el otro se muestra
+      <svg id="burguer" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path stroke="none" d="M0 0h24v24H0z" fill="none"/> <path id="line-top" d="M4 8l16 0" /> <path id="line-bottom" d="M4 16l16 0" /></svg>
+      <svg id="x" class="hidden" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path stroke="none" d="M0 0h24v24H0z" fill="none"/> <path d="M18 6l-12 12" /><path d="M6 6l12 12" /></svg>
+    </button>
+  </div>
+  <ul id="links" class="hidden lg:flex flex-col lg:flex-row text-center lg:gap-8 space-y-4 lg:space-y-0 lg:mt-0 mt-8">
+    { navItems.map(({ href, label }) => (
+      <li
+        class={`px-4 py-2 rounded-xl ${ pathname === href ? 'bg-[var(--primary)] text-white' : 'text-[var(--primary)]'}`}
+      >
+        <a class='block' href={href}>{label}</a>
+      </li>
+    ))}
+  </ul>
+</nav>
+
+<script>
+const toggle = document.getElementById('toggle');
+const navLinks = document.getElementById('links');
+const burguerIcon = document.getElementById('burguer');
+const xIcon = document.getElementById('x');
+toggle.addEventListener('click', () => {
+  navLinks.classList.toggle('hidden');
+  burguer.classList.toggle('hidden');
+  x.classList.toggle('hidden');
+});
+</script>
+
+<style>
+  #links li:hover, button:hover {
+    cursor: pointer;
+  }
+</style>
