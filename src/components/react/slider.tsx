@@ -32,11 +32,10 @@ export default function Slider() {
           <img
             src={src}
             alt={alt}
-            className="w-full h-auto object-contain rounded-lg"
+            className="w-full h-auto object-contain"
           />
         </SplideSlide>
       ))}
     </Splide>
   );
 }
-
