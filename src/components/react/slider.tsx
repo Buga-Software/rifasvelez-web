@@ -20,6 +20,7 @@ export default function Slider() {
         type: 'loop',
         perPage: 1,
         autoplay: true,
+        interval: 3000,        resetProgress: false,
         pagination: true,
         arrows: true,
       }}
