@@ -1,15 +1,21 @@
 ---
-import Slider from '@components/react/slider.tsx';
+import Slider from "@components/react/slider.tsx";
 ---
 
 <header class="py-6">
   <div class="grid grid-rows-2 gap-5 lg:grid-cols-[3fr_1fr]">
-    <div class="rounded-lg">
-      <Slider client:load/>
+    <div class="rounded-lg overflow-hidden">
+      <Slider client:only="react" />
     </div>
-    <div class="bg-blue-500">
-      <!-- video -->
-    </div>
+    <iframe
+      src="https://www.instagram.com/reel/DLTQPNIySIE/embed"
+      width="360"
+      height="660"
+      frameborder="0"
+      allowfullscreen
+      scrolling="no"
+      style="border-radius: 12px; border: none; overflow: hidden;"
+    >
+    </iframe>
   </div>
 </header>
-
