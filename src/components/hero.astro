@@ -3,14 +3,14 @@ import Slider from "@components/react/slider.tsx";
 ---
 
 <header class="py-6">
-  <div class="grid grid-rows-2 gap-5 lg:grid-cols-[3fr_1fr]">
+  <div class="grid grid-rows-[1fr_3fr] lg:grid-rows-0 gap-5 lg:grid-cols-[3fr_1fr]">
     <div class="rounded-lg overflow-hidden">
       <Slider client:only="react" />
     </div>
     <iframe
       src="https://www.instagram.com/reel/DLTQPNIySIE/embed"
-      width="360"
-      height="660"
+      width="100%"
+      height="100%"
       frameborder="0"
       allowfullscreen
       scrolling="no"
