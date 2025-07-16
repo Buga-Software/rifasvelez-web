@@ -1,8 +1,6 @@
 ---
-// Se le pide la ruta actual a Astro
 const { pathname } = new URL(Astro.request.url);
 
-// Para optimizar codigo y estilos
 const navItems = [
   { href: '/', label: 'Inicio' },
   { href: '/ganadores', label: 'Ganadores' },
@@ -11,19 +9,26 @@ const navItems = [
 ];
 ---
 
-<nav class="flex flex-col lg:flex-row lg:items-center justify-between w-full px-8 py-5 bg-white rounded-3xl font-bold text-[var(--primary)]">
+<nav class="fixed top-3 lg:top-3 left-3 right-3 lg:left-24 lg:right-24 z-50 flex flex-col lg:flex-row lg:items-center justify-between px-8 py-5 bg-white/80 backdrop-blur-md rounded-3xl font-bold text-[var(--primary)] shadow-md">
   <div class="flex justify-between">
     <img class="h-14" src="/assets/velez.png" alt="Logo de Velez la tradicional de los bugueños">
     <button class="lg:hidden" id="toggle">
-      <svg class="transition-all duration-300 ease-in-out" id="burguer" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path stroke="none" d="M0 0h24v24H0z" fill="none"/> <path id="line-top" d="M4 8l16 0" /> <path id="line-bottom" d="M4 16l16 0" /></svg>
-      <svg id="x" class="hidden transition-all duration-300 ease-in-out" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path stroke="none" d="M0 0h24v24H0z" fill="none"/> <path d="M18 6l-12 12" /><path d="M6 6l12 12" /></svg>
+      <svg class="transition-all duration-300 ease-in-out" id="burguer" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+        <path id="line-top" d="M4 8l16 0" />
+        <path id="line-bottom" d="M4 16l16 0" />
+      </svg>
+      <svg id="x" class="hidden transition-all duration-300 ease-in-out" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+        <path d="M18 6l-12 12" />
+        <path d="M6 6l12 12" />
+      </svg>
     </button>
   </div>
+
   <ul id="links" class="max-h-0 overflow-hidden lg:max-h-none transition-all duration-500 ease-in-out lg:flex flex-col lg:flex-row text-center lg:gap-8 space-y-2 lg:space-y-0">
     { navItems.map(({ href, label }) => (
-      <li
-        class={`px-4 py-2 rounded-xl hover:bg-[var(--primary)] hover:text-white transition-color duration-300 ease-in-out ${ pathname === href ? 'bg-[var(--primary)] text-white' : 'text-[var(--primary)]'}`}
-      >
+      <li class={`px-4 py-2 rounded-xl hover:bg-[var(--primary)] hover:text-white transition-color duration-300 ease-in-out ${ pathname === href ? 'bg-[var(--primary)] text-white' : 'text-[var(--primary)]'}`}>
         <a class='block' href={href}>{label}</a>
       </li>
     ))}

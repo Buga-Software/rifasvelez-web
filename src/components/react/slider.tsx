@@ -23,7 +23,7 @@ export default function Slider() {
         interval: 3000,
         resetProgress: false,
         pagination: true,
-        arrows: true,
+        arrows: false,
       }}
       aria-label="Imagenes del slider"
     >
