@@ -7,10 +7,10 @@ interface Slide {
 }
 
 const slides = [
-  { src: '/assets/anticipados.png', alt: 'Anticipados' },
-  { src: '/assets/cuota-inicial-mas-adicionales.png', alt: 'Cuota inicial' },
-  { src: '/assets/opcional-al-mayor.png', alt: 'Opcional mayor' },
-  { src: '/assets/premio-mayor.png', alt: 'Premio mayor' },
+  { src: '/assets/anticipados.webp', alt: 'Anticipados' },
+  { src: '/assets/cuota-inicial-mas-adicionales.webp', alt: 'Cuota inicial' },
+  { src: '/assets/opcional-al-mayor.webp', alt: 'Opcional mayor' },
+  { src: '/assets/premio-mayor.webp', alt: 'Premio mayor' },
 ];
 
 export default function Slider() {
