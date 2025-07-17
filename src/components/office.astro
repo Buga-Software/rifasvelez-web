@@ -1,0 +1,35 @@
+---
+import Map from '@components/react/map.tsx';
+---
+<div class="flex flex-col gap-8 lg:flex-row items-center lg:justify-between rounded-2xl text-white px-8 py-6 lg:px-20 lg:py-12 bg-[var(--primary)]">
+  <div class="lg:text-2xl lg:w-[50%]">
+    <h2 class="text-balance text-3xl lg:text-5xl font-black mb-6 text-white">¡Visita nuestra oficina!</h2>
+    <p class="text-pretty mb-6">Allí podrás adquirir tus boletas de <strong>forma segura</strong> y recibir toda la información que necesites sobre nuestras rifas. <strong>Nuestro equipo estará encantado de atenderte</strong> y resolver cualquier duda que tengas.</p>
+    <div class="flex items-center lg:items-baseline gap-5 mb-3">
+      <img src="/icons/office.svg" alt="Icono de oficina">
+      <span>Carrera 14 # 15 - 26, Buga - Valle del cauca</span>
+    </div>
+    <div class="flex items-start gap-5">
+      <img src="icons/clock.svg" alt="Icono de reloj">
+      <div class="flex flex-col gap-2">
+        <span>Lunes a sábado</span>
+        <span><strong>09:00 am</strong> - <strong>12:00 pm</strong></span>
+        <span><strong>02:00 pm</strong> - <strong>06:00 pm</strong</span>
+      </div>
+    </div>
+  </div>
+  <div>
+    <Map client:only="react" />
+  </div>
+</div>
+
+<style>
+  strong {
+    color: var(--secondary);
+    font-weight: 800;
+  }
+
+  span, p {
+    font-weight: 600;
+  }
+</style>
