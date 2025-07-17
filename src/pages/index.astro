@@ -1,12 +1,22 @@
 ---
-import Layout from "../layouts/layout.astro";
+import Layout from "@layouts/layout.astro";
 import Nav from "@components/nav.astro";
 import Hero from "@components/hero.astro";
-import Footer from "../components/footer.astro";
+import Footer from "@components/footer.astro";
+import About from "@components/about.astro";
+import LastWinner from "@components/lastWinner.astro";
+import Office from "@components/office.astro";
+import FAQ from "@components/faq.astro";
 ---
 
 <Layout title="Velez la tradicional de los bugueños">
-  <Nav />
-  <Hero />
-  <Footer />
+  <div class="pt-28 space-y-5">
+    <Nav />
+    <Hero />
+    <About />
+    <LastWinner />
+    <Office />
+    <FAQ />
+    <Footer />
+  <div>
 </Layout>

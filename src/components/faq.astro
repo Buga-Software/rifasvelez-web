@@ -1,0 +1,71 @@
+---
+const faq = [
+  { question: '¿Qué métodos de pago aceptan?', answer: 'Integer posuere erat a ante venenatis dapibus posuere velit aliquet.' },
+  { question: '¿Puedo usar la plataforma desde el móvil?', answer: 'Curabitur blandit tempus porttitor. Aenean lacinia bibendum nulla sed consectetur.' },
+  { question: '¿Qué sucede si no pago la boleta?', answer: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam quis risus eget urna mollis ornare vel eu leo.' },
+];
+---
+<div>
+  <h2 class="text-[var(--primary)] text-3xl text-balance lg:text-5xl font-black mb-6">Preguntas frecuentes</h2>
+  <div class="space-y-3">
+    {
+      faq.map(({question, answer}) => (
+        <details class="faq text-white px-8 py-6 bg-[var(--primary)] rounded-xl group [&_summary::-webkit-details-marker]:hidden">
+          <summary
+            class="hover:pointer flex items-center justify-between gap-1.5"
+          >
+            <h2 class="text-lg lg:text-2xl font-bold text-balance">{question}</h2>
+
+            <svg
+              class="size-5 shrink-0 transition-transform duration-300 group-open:-rotate-180"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </summary>
+
+          <div class="faq-content overflow-hidden transition-all duration-300 ease-in-out">
+            <p class="text-pretty lg:text-2xl pt-4">{answer}</p>
+          </div>
+        </details>
+      ))
+    }    
+  </div>
+</div>
+
+
+<script>
+document.querySelectorAll('.faq').forEach((details) => {
+  const content = details.querySelector('.faq-content');
+
+  if (details.hasAttribute('open')) {
+    content.style.height = content.scrollHeight + 'px';
+  } else {
+    content.style.height = '0px';
+  }
+
+  const summary = details.querySelector('summary');
+  summary.addEventListener('click', (e) => {
+    e.preventDefault();
+    const isOpen = details.hasAttribute('open');
+
+    if (isOpen) {
+      // Cerrar
+      content.style.height = content.scrollHeight + 'px';
+      requestAnimationFrame(() => {
+        content.style.height = '0px';
+      });
+
+      setTimeout(() => details.removeAttribute('open'), 300);
+    } else {
+      details.setAttribute('open', 'true');
+      requestAnimationFrame(() => {
+        content.style.height = content.scrollHeight + 'px';
+      });
+    }
+  });
+});
+</script>
