@@ -2,12 +2,12 @@
 import Slider from "@components/react/slider.tsx";
 ---
 
-<header class="py-6 pt-28">
-  <div class="grid gap-5 grid-rows-[auto_auto] lg:grid-rows-none lg:grid-cols-[3fr_1fr] lg:h-full items-stretch">
-    <div class="rounded-2xl overflow-hidden h-auto lg:h-full">
+<header>
+  <div class="grid gap-5 grid-rows-[auto_auto] md:grid-rows-none md:grid-cols-[3fr_1fr] h-full items-stretch">
+    <div class="bg-zinc-300 w-full order-2 md:order-1 rounded-2xl overflow-hidden h-auto lg:h-full">
       <Slider client:only="react" />
     </div>
-    <div class="rounded-2xl overflow-hidden h-auto lg:h-full">
+    <div class="order-1 md:order-2 rounded-2xl overflow-hidden h-auto lg:h-full">
       <video
         autoplay
         loop
