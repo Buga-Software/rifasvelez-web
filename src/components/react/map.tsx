@@ -22,7 +22,7 @@ export default function MapComponent() {
   return (
     <div
       id="map"
-      style={{ height: '400px', width: '600px', borderRadius: '12px' }}
+      style={{ height: '100%', width: '100%', borderRadius: '12px', zIndex: 0 }}
     />
   );
 }

@@ -1,28 +1,62 @@
-<div class="flex flex-col gap-8 lg:flex-row items-start justify-between rounded-2xl py-6 px-8 lg:px-20 lg:py-12 bg-[var(--primary)]">
-  <div>
-    <h2 class="text-3xl text-balance lg:text-5xl font-black mb-6 text-white">¡Conoce a nuestro último ganador!</h2>
-    <p class="lg:text-2xl text-pretty mb-3">¡Tú también puedes ser parte de ellos!</p>
-    <p class="lg:text-2xl text-pretty mb-6">Contáctanos y no pierdas la <strong>oportunidad de participar</strong></p>
-    <div class="inline-flex flex-col md:flex-row gap-4 lg:gap-8">
-      <a class="lg:text-2xl font-bold px-3 py-1.5 lg:px-6 lg:py-3 rounded-4xl bg-white text-[var(--primary)]" href="#">¡Participa ahora!</a>
-      <a class="lg:text-2xl font-bold text-white px-3 py-1.5 lg:px-6 lg:py-3 rounded-4xl border border-white" href="#">Ver más ganadores</a>
+<div
+  class="flex flex-col lg:flex-row gap-8 items-start justify-between rounded-2xl py-6 px-8 lg:px-20 lg:py-12 bg-white shadow-md"
+>
+  <!-- Contenedor izquierdo (texto) -->
+  <div class="w-full lg:w-2/3">
+    <h2 class="text-3xl lg:text-4xl font-extrabold mb-4 text-[var(--primary)] leading-tight">
+      ¡Conoce a nuestro último ganador!
+    </h2>
+    <p class="text-base lg:text-lg mb-2 text-zinc-800 font-medium">
+      ¡Tú también puedes ser parte de ellos!
+    </p>
+    <p class="text-base lg:text-lg mb-6 text-zinc-800 font-medium">
+      Contáctanos y no pierdas la oportunidad de participar
+    </p>
+
+    <!-- Card del ganador (solo visible aquí en móvil) -->
+    <div
+      class="lg:hidden mt-6 flex flex-col items-center justify-center text-center gap-2 px-6 py-8 text-white bg-[var(--primary)] rounded-2xl shadow-lg w-full"
+    >
+      <span class="text-4xl font-black">4351</span>
+      <span class="text-xl font-semibold">Sandra Eugenia Castro</span>
+      <span class="text-sm text-white/70 font-medium">
+        Ganador/a del sorteo más reciente
+      </span>
+    </div>
+
+    <!-- Botones -->
+    <div class="mt-6 flex flex-col sm:flex-row gap-4 items-center sm:items-start">
+      <a
+        class="text-sm lg:text-lg font-bold px-4 py-3 lg:px-6 lg:py-3 rounded-full bg-[var(--primary)] text-white transition hover:brightness-110 text-center w-full sm:w-auto"
+        href="#"
+      >
+        ¡Participa ahora!
+      </a>
+      <a
+        class="text-sm lg:text-lg font-bold px-4 py-3 lg:px-6 lg:py-3 rounded-full border border-[var(--primary)] text-[var(--primary)] transition hover:bg-[var(--primary)] hover:text-white text-center w-full sm:w-auto"
+        href="#"
+      >
+        Ver más ganadores
+      </a>
     </div>
   </div>
-  <div class="text-[var(--primary)] flex flex-col items-center justify-center gap-5 text-2xl lg:text-4xl font-black bg-zinc-100 rounded-xl h-48 lg:h-64 w-full lg:w-86">
-    <span>0000</span>
-    <span>Pepito Perez</span>
+
+  <!-- Card del ganador (solo visible en desktop) -->
+  <div
+    class="hidden lg:flex flex-col items-center justify-center text-center gap-2 px-6 py-8 text-white bg-[var(--primary)] rounded-2xl shadow-lg w-full lg:w-80"
+  >
+    <span class="text-5xl font-black">4351</span>
+    <span class="text-2xl font-semibold">Sandra Eugenia Castro</span>
+    <span class="text-sm text-white/70 font-medium">
+      Ganador/a del sorteo más reciente
+    </span>
   </div>
 </div>
 
 <style>
   strong {
-    color: var(--secondary);
+    color: var(--primary);
     font-weight: 800;
-  }
-
-  p {
-    color: #fff;
-    font-weight: 600;
   }
 
   a {

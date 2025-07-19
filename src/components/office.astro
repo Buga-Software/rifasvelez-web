@@ -1,35 +1,45 @@
 ---
 import Map from '@components/react/map.tsx';
 ---
-<div class="flex flex-col gap-8 lg:flex-row items-center lg:justify-between rounded-2xl text-white px-8 py-6 lg:px-20 lg:py-12 bg-[var(--primary)]">
-  <div class="lg:text-2xl lg:w-[50%]">
-    <h2 class="text-balance text-3xl lg:text-5xl font-black mb-6 text-white">¡Visita nuestra oficina!</h2>
-    <p class="text-pretty mb-6">Allí podrás adquirir tus boletas de <strong>forma segura</strong> y recibir toda la información que necesites sobre nuestras rifas. <strong>Nuestro equipo estará encantado de atenderte</strong> y resolver cualquier duda que tengas.</p>
-    <div class="flex items-center lg:items-baseline gap-5 mb-3">
-      <img src="/icons/office.svg" alt="Icono de oficina">
-      <span>Carrera 14 # 15 - 26, Buga - Valle del cauca</span>
+<div class="flex flex-col gap-10 lg:flex-row items-start justify-between rounded-2xl text-[var(--primary)] px-6 py-6 lg:px-20 lg:py-12 bg-white shadow-md">
+  <div class="text-base lg:text-lg lg:w-1/2">
+    <h2 class="text-3xl lg:text-4xl font-extrabold mb-4 leading-tight text-[var(--primary)]">
+      ¡Visita nuestra oficina!
+    </h2>
+    <p class="text-pretty mb-6 text-zinc-800">
+      Aquí podrás adquirir tus boletas de <strong>forma segura</strong> y recibir toda la información que necesites sobre nuestras rifas.
+      <br />
+      <strong>Nuestro equipo estará encantado de atenderte</strong> y resolver cualquier duda que tengas.
+    </p>
+
+    <div class="flex items-start gap-4 mb-3 text-zinc-800">
+      <img src="/icons/office.svg" alt="Icono de oficina" class="w-6 h-6" />
+      <span class="leading-snug">Carrera 14 # 15 - 26, Buga - Valle del Cauca</span>
     </div>
-    <div class="flex items-start gap-5">
-      <img src="icons/clock.svg" alt="Icono de reloj">
-      <div class="flex flex-col gap-2">
+
+    <div class="flex items-start gap-4 text-zinc-800">
+      <img src="/icons/clock.svg" alt="Icono de reloj" class="w-6 h-6" />
+      <div class="flex flex-col gap-1 leading-snug">
         <span>Lunes a sábado</span>
         <span><strong>09:00 am</strong> - <strong>12:00 pm</strong></span>
-        <span><strong>02:00 pm</strong> - <strong>06:00 pm</strong</span>
+        <span><strong>02:00 pm</strong> - <strong>06:00 pm</strong></span>
       </div>
     </div>
   </div>
-  <div>
+
+  <div class="w-full lg:w-1/2 h-64 lg:h-[400px]">
     <Map client:only="react" />
   </div>
 </div>
 
 <style>
   strong {
-    color: var(--secondary);
+    color: var(--primary);
     font-weight: 800;
   }
 
-  span, p {
+  p, span {
     font-weight: 600;
   }
 </style>
+

@@ -1,23 +1,35 @@
 ---
 const faq = [
-  { question: '¿Qué métodos de pago aceptan?', answer: 'Integer posuere erat a ante venenatis dapibus posuere velit aliquet.' },
-  { question: '¿Puedo usar la plataforma desde el móvil?', answer: 'Curabitur blandit tempus porttitor. Aenean lacinia bibendum nulla sed consectetur.' },
-  { question: '¿Qué sucede si no pago la boleta?', answer: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam quis risus eget urna mollis ornare vel eu leo.' },
+  {
+    question: '¿Qué métodos de pago aceptan?',
+    answer: 'Aceptamos efectivo, transferencia bancaria, y pagos por plataformas digitales. Puedes contactarnos para más detalles.'
+  },
+  {
+    question: '¿Puedo usar la plataforma desde el móvil?',
+    answer: 'Sí, nuestra plataforma es completamente responsive y se adapta perfectamente a cualquier dispositivo móvil.'
+  },
+  {
+    question: '¿Qué sucede si no pago la boleta?',
+    answer: 'La boleta no será válida para participar en el sorteo. Asegúrate de realizar el pago dentro del plazo establecido.'
+  },
 ];
 ---
-<div>
-  <h2 class="text-[var(--primary)] text-3xl text-balance lg:text-5xl font-black mb-6">Preguntas frecuentes</h2>
-  <div class="space-y-3">
-    {
-      faq.map(({question, answer}) => (
-        <details class="faq text-white px-8 py-6 bg-[var(--primary)] rounded-xl group [&_summary::-webkit-details-marker]:hidden">
-          <summary
-            class="hover:pointer flex items-center justify-between gap-1.5"
-          >
-            <h2 class="text-lg lg:text-2xl font-bold text-balance">{question}</h2>
 
+<div>
+  <h2 class="text-[var(--primary)] text-3xl lg:text-5xl font-black mb-8 text-balance">
+    Preguntas frecuentes
+  </h2>
+
+  <div class="space-y-4">
+    {
+      faq.map(({ question, answer }, i) => (
+        <details
+          class="group overflow-hidden cursor-pointer rounded-xl bg-[var(--primary)] text-white px-6 py-5 transition-all duration-300"
+        >
+          <summary class="flex items-center justify-between gap-2 text-left text-lg lg:text-2xl font-semibold marker:hidden">
+            {question}
             <svg
-              class="size-5 shrink-0 transition-transform duration-300 group-open:-rotate-180"
+              class="size-5 transition-transform duration-300 group-open:rotate-180"
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
@@ -26,44 +38,47 @@ const faq = [
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
             </svg>
           </summary>
-
-          <div class="faq-content overflow-hidden transition-all duration-300 ease-in-out">
-            <p class="text-pretty lg:text-2xl pt-4">{answer}</p>
+          <div class="faq-content transition-all duration-300 ease-in-out overflow-hidden">
+            <p class="mt-4 text-base lg:text-xl leading-relaxed text-pretty">
+              {answer}
+            </p>
           </div>
         </details>
       ))
-    }    
+    }
   </div>
 </div>
 
+<script lang="ts">
+document.querySelectorAll('.faq-content').forEach((content) => {
+  const parent = content.closest('details');
+  const summary = parent.querySelector('summary');
 
-<script>
-document.querySelectorAll('.faq').forEach((details) => {
-  const content = details.querySelector('.faq-content');
+  const setHeight = (open) => {
+    if (open) {
+      content.style.height = content.scrollHeight + 'px';
+    } else {
+      content.style.height = '0px';
+    }
+  };
 
-  if (details.hasAttribute('open')) {
-    content.style.height = content.scrollHeight + 'px';
-  } else {
-    content.style.height = '0px';
-  }
+  if (parent.hasAttribute('open')) setHeight(true);
+  else setHeight(false);
 
-  const summary = details.querySelector('summary');
   summary.addEventListener('click', (e) => {
     e.preventDefault();
-    const isOpen = details.hasAttribute('open');
+    const isOpen = parent.hasAttribute('open');
 
     if (isOpen) {
-      // Cerrar
-      content.style.height = content.scrollHeight + 'px';
+      setHeight(true);
       requestAnimationFrame(() => {
-        content.style.height = '0px';
+        setHeight(false);
       });
-
-      setTimeout(() => details.removeAttribute('open'), 300);
+      setTimeout(() => parent.removeAttribute('open'), 300);
     } else {
-      details.setAttribute('open', 'true');
+      parent.setAttribute('open', 'true');
       requestAnimationFrame(() => {
-        content.style.height = content.scrollHeight + 'px';
+        setHeight(true);
       });
     }
   });
