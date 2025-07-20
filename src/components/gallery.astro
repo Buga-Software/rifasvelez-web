@@ -1,0 +1,27 @@
+---
+const images = Array.from({ length: 26 }, (_, i) => ({
+  src: `/assets/pictures/foto-${i + 1}.webp`,
+  alt: `Foto ${i + 1}`,
+}));
+---
+
+<div class="columns-2 sm:columns-3 lg:columns-5 gap-4 space-y-4">
+  {images.map((img) => (
+    <a
+      class="cursor-zoom-in block break-inside-avoid"
+      data-fancybox="gallery"
+      data-src={img.src}
+      data-caption={img.alt}
+    >
+      <img class="w-full rounded-lg shadow" src={img.src} alt={img.alt} loading="lazy" />
+    </a>
+  ))}
+</div>
+
+<script>
+import { Fancybox } from '@fancyapps/ui/dist/fancybox/';
+import '@fancyapps/ui/dist/fancybox/fancybox.css';
+
+Fancybox.bind('[data-fancybox]', {
+});
+</script>
