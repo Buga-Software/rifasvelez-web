@@ -4,6 +4,7 @@ import logo from "../../public/assets/velez.png";
 import facebookIcon from "../../public/icons/facebook.svg";
 import instagramIcon from "../../public/icons/instagram.svg";
 import whatsappIcon from "../../public/icons/whatsapp.svg";
+import bugaIcon from "../../public/bugasoftware-favicon.svg";
 ---
 
 <footer class="bg-white rounded-3xl p-9">
@@ -28,24 +29,37 @@ import whatsappIcon from "../../public/icons/whatsapp.svg";
       <h3 class="font-extrabold mb-2">Contáctanos</h3>
       <p class="mb-1">+57 3169419113</p>
       <p class="mb-1">Carrera 14 #15-26</p>
-      <p>Horarios de atención</p>
+      <p>
+        Lunes a sábado <br /> 09:00 am - 12:00 pm <br /> 02:00 pm - 06:00 pm
+      </p>
     </div>
 
     <div class="flex flex-col justify-start text-[var(--primary)] text-base">
       <h3 class="font-extrabold mb-2">Información legal</h3>
-      <a href="#" class="mb-1 hover:underline">Aviso legal</a>
-      <a href="#" class="mb-1 hover:underline">Términos y condiciones</a>
-      <a href="#" class="hover:underline">Políticas de privacidad</a>
+      <a href="/legalnotice" class="mb-1 underline">Aviso legal</a>
+      <a href="/tyc" class="mb-1 underline">Términos y condiciones</a>
+      <a href="/privacy" class="underline">Políticas de privacidad</a>
     </div>
   </div>
 
   <hr class="border-t border-[var(--primary)] mx-6 mt-4" />
 
-  <div class="flex flex-col md:items-start items-center px-6 py-4 text-sm text-[var(--primary)] gap-3">
-    <span class="font-bold">Versión 1.0</span>
-    <span class="mt-2 md:mt-0 text-center md:text-right">
-      © Velez la tradicional de los bugueños. Todos los derechos reservados
-    </span>
+  <div class="flex flex-col lg:flex-row justify-between items-center lg:items-start px-6 py-4 text-sm text-[var(--primary)] gap-3">
+    <div class="text-center lg:text-left space-y-1">
+      <p class="font-bold">Versión 1.0</p>
+      <p>© 2025 Todos los derechos reservados. Vélez la tradicional de los bugueños.</p>
+    </div>
+
+    <div class="flex flex-col-reverse lg:flex-row items-center gap-2 mt-6">
+      <img src={bugaIcon.src} alt="Buga Software" class="size-6" />
+      <a
+        href="https://bugasoftware.com"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="hover:underline"
+      >
+        Desarrollado por Buga Software
+      </a>
+    </div>
   </div>
 </footer>
-
