@@ -16,7 +16,7 @@ const faq = [
 ---
 
 <div>
-  <h2 class="text-[var(--primary)] text-3xl lg:text-5xl font-black mb-8 text-balance">
+  <h2 class="text-[var(--primary)] text-2xl lg:text-3xl font-black mb-6 text-balance">
     Preguntas frecuentes
   </h2>
 
@@ -24,9 +24,9 @@ const faq = [
     {
       faq.map(({ question, answer }, i) => (
         <details
-          class="group overflow-hidden cursor-pointer rounded-xl bg-[var(--primary)] text-white px-6 py-5 transition-all duration-300"
+          class="group overflow-hidden cursor-pointer rounded-2xl bg-[var(--primary)] text-white px-6 py-5 transition-all duration-300"
         >
-          <summary class="flex items-center justify-between gap-2 text-left text-lg lg:text-2xl font-semibold marker:hidden">
+          <summary class="flex items-center justify-between gap-2 text-left text-lg lg:text-xl font-semibold marker:hidden">
             {question}
             <svg
               class="size-5 transition-transform duration-300 group-open:rotate-180"
@@ -39,7 +39,7 @@ const faq = [
             </svg>
           </summary>
           <div class="faq-content transition-all duration-300 ease-in-out overflow-hidden">
-            <p class="mt-4 text-base lg:text-xl leading-relaxed text-pretty">
+            <p class="mt-4 text-base lg:text-lg leading-relaxed text-pretty">
               {answer}
             </p>
           </div>
