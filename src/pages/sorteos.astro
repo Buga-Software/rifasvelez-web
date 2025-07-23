@@ -2,6 +2,7 @@
 import Layout from "@/layouts/layout.astro";
 import Nav from "@/components/nav.astro";
 import Footer from "@/components/footer.astro";
+import SorteoCard from "@components/sorteoCard.astro";
 
 export interface Sorteo {
   img: string;
@@ -48,54 +49,13 @@ export const sorteos: Sorteo[] = [
 
 <Layout title="Sorteos">
   <Nav />
-  <div class="pt-30 space-y-6">
-    <div class="bg-white rounded-3xl shadow-md py-6 px-8 lg:py-14 lg:px-20 space-y-6">
-      <h1 class="flex text-3xl lg:text-4xl font-extrabold text-[var(--primary)]">Sorteos Activos</h1>
-      <div class="flex flex-col gap-8">
+      <div class="grid grid-cols-2 gap-4 pt-30 mb-10">
         {
         sorteos.map((sorteo: Sorteo) => (
-          <div class="flex flex-col lg:flex-row items-center gap-8">
-            <div class="w-full lg:w-1/2">
-              <img
-                src={sorteo.img}
-                alt={sorteo.alt}
-                class="w-full rounded-xl shadow-md object-cover"
-              />
-            </div>
-            <div class="w-full lg:w-1/2 text-zinc-800">
-              <h2 class="text-2xl lg:text-3xl font-bold text-[var(--primary)]">
-                {sorteo.titulo}
-              </h2>
-
-              <div class="space-y-3 text-sm mt-4 lg:text-lg leading-relaxed font-medium">
-                {
-                  sorteo.descripcion.map((linea) => {
-                    return linea.startsWith("-") ? (
-                      <ul class="list-disc list-inside">
-                        <li>{linea.replace("-", "").trim()}</li>
-                      </ul>
-                    ) : (
-                      <p>{linea}</p>
-                    );
-                  })
-                }
-                <p><strong>El sorteo se realizará el {sorteo.fecha}.</strong></p>
-              </div>
-
-              <a
-                href={`https://wa.me/573169419113?text=${encodeURIComponent(sorteo.mensajeWhatsapp)}`}
-                target="_blank"
-                class="flex w-full justify-center text-center mt-6 px-6 py-3 rounded-full bg-[var(--primary)] text-white font-bold text-sm hover:brightness-110 transition"
-              >
-                ¡Participa ahora!
-              </a>
-            </div>
-          </div>
+          <SorteoCard sorteo={sorteo}/>
         ))
         }
       </div>
-    </div>
 
     <Footer />
-  </div>
 </Layout>
