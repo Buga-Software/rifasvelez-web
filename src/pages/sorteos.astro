@@ -39,7 +39,7 @@ export const sorteos: Sorteo[] = [
       "- Abona $60.000 antes del 25 de octubre: $500.000.",
       "- Cancela la boleta antes del 22 de noviembre: $500.000.",
       "Sorteo: 6 de diciembre con la Lotería de Boyacá (sin serie).",
-      "Valor total de la boleta: $90.000."
+      "Valor del bono: $90.000."
     ],
     fecha: "6 de Diciembre de 2025",
     mensajeWhatsapp: "Hola, estoy interesado en el sorteo de las motos",
@@ -49,13 +49,12 @@ export const sorteos: Sorteo[] = [
 
 <Layout title="Sorteos">
   <Nav />
-      <div class="grid grid-cols-2 gap-4 pt-30 mb-10">
+      <div class="grid lg:grid-cols-2 gap-4 pt-30 mb-10">
         {
         sorteos.map((sorteo: Sorteo) => (
           <SorteoCard sorteo={sorteo}/>
         ))
         }
       </div>
-
     <Footer />
 </Layout>
