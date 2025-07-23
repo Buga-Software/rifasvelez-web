@@ -1,0 +1,101 @@
+---
+import Layout from "@/layouts/layout.astro";
+import Nav from "@/components/nav.astro";
+import Footer from "@/components/footer.astro";
+
+export interface Sorteo {
+  img: string;
+  alt: string;
+  titulo: string;
+  descripcion: string[];
+  fecha: string;
+  mensajeWhatsapp: string;
+}
+
+export const sorteos: Sorteo[] = [
+  {
+    img: "/assets/premio-mayor.webp",
+    alt: "Sorteo Diciembre 2025",
+    titulo: "Sorteo de Fin de Año 2025",
+    descripcion: [
+      "Premio mayor: una casa a tu gusto (urbana o campestre) valorada en $450 millones.",
+      "También puedes elegir entre una Ford Ranger XL, Mazda CX-30 o una BMW G310 GS.",
+      "El sorteo se juega el 20 de diciembre con la Lotería de Boyacá (sin serie).",
+      "Valor del bono: $250.000.",
+      "Además, participa en sorteos anticipados y gana bonos en efectivo por tus abonos."
+    ],
+    fecha: "20 de diciembre de 2025",
+    mensajeWhatsapp: "Hola, estoy interesado en el sorteo de fin de año",
+  },
+  {
+    img: "/assets/sorteo-motos.webp",
+    alt: "Sorteo de motos Vélez",
+    titulo: "Sorteo de Motos 2025",
+    descripcion: [
+      "Participa por una de las tres motos Yamaha 2026: NMAX, XTZ 150 y CRYPTON.",
+      "Con solo $30.000 de cuota inicial ya participas por un premio de $500.000.",
+      "Bonos por anticipos:",
+      "- Abona $60.000 antes del 25 de octubre: $500.000.",
+      "- Cancela la boleta antes del 22 de noviembre: $500.000.",
+      "Sorteo: 6 de diciembre con la Lotería de Boyacá (sin serie).",
+      "Valor total de la boleta: $90.000."
+    ],
+    fecha: "6 de Diciembre de 2025",
+    mensajeWhatsapp: "Hola, estoy interesado en el sorteo de las motos",
+  },
+];
+---
+
+<Layout title="Sorteos">
+  <Nav />
+  <div class="pt-30 space-y-6">
+    <div class="bg-white rounded-3xl shadow-md py-6 px-8 lg:py-14 lg:px-20 space-y-6">
+      <h1 class="flex text-3xl lg:text-4xl font-extrabold text-[var(--primary)]">Sorteos Activos</h1>
+      <div class="flex flex-col gap-8">
+        {
+        sorteos.map((sorteo: Sorteo) => (
+          <div class="flex flex-col lg:flex-row items-center gap-8">
+            <div class="w-full lg:w-1/2">
+              <img
+                src={sorteo.img}
+                alt={sorteo.alt}
+                class="w-full rounded-xl shadow-md object-cover"
+              />
+            </div>
+            <div class="w-full lg:w-1/2 text-zinc-800">
+              <h2 class="text-2xl lg:text-3xl font-bold text-[var(--primary)]">
+                {sorteo.titulo}
+              </h2>
+
+              <div class="space-y-3 text-sm mt-4 lg:text-lg leading-relaxed font-medium">
+                {
+                  sorteo.descripcion.map((linea) => {
+                    return linea.startsWith("-") ? (
+                      <ul class="list-disc list-inside">
+                        <li>{linea.replace("-", "").trim()}</li>
+                      </ul>
+                    ) : (
+                      <p>{linea}</p>
+                    );
+                  })
+                }
+                <p><strong>El sorteo se realizará el {sorteo.fecha}.</strong></p>
+              </div>
+
+              <a
+                href={`https://wa.me/573169419113?text=${encodeURIComponent(sorteo.mensajeWhatsapp)}`}
+                target="_blank"
+                class="flex w-full justify-center text-center mt-6 px-6 py-3 rounded-full bg-[var(--primary)] text-white font-bold text-sm hover:brightness-110 transition"
+              >
+                ¡Participa ahora!
+              </a>
+            </div>
+          </div>
+        ))
+        }
+      </div>
+    </div>
+
+    <Footer />
+  </div>
+</Layout>

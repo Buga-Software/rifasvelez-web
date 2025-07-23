@@ -3,13 +3,13 @@ const { pathname } = new URL(Astro.request.url);
 
 const navItems = [
   { href: '/', label: 'Inicio' },
-  { href: '/winners', label: 'Ganadores' },
+  { href: '/ganadores', label: 'Ganadores' },
   { href: '/sorteos', label: 'Sorteos' },
   { href: '/se-vendedor', label: 'Sé vendedor!' }
 ];
 ---
 
-<nav class="fixed top-3 lg:top-3 left-3 right-3 lg:left-24 lg:right-24 z-[1000] flex flex-col lg:flex-row lg:items-center justify-between px-8 py-5 bg-white/80 backdrop-blur-md rounded-3xl font-bold text-[var(--primary)] shadow-md">
+<nav class="fixed top-3 lg:top-3 left-3 right-3 lg:left-24 lg:right-24 z-[1000] flex flex-col lg:flex-row lg:items-center justify-between px-8 py-5 bg-white/80 backdrop-blur-md rounded-3xl font-bold text-[var(--primary)] border border-white shadow-md">
   <div class="flex justify-between">
     <img class="h-14" src="/assets/velez.png" alt="Logo de Velez la tradicional de los bugueños">
     <button class="lg:hidden" id="toggle">
