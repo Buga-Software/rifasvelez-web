@@ -1,0 +1,60 @@
+---
+import Layout from "@/layouts/layout.astro";
+import Nav from "@/components/nav.astro";
+import Footer from "@/components/footer.astro";
+import SorteoCard from "@components/sorteoCard.astro";
+
+export interface Sorteo {
+  img: string;
+  alt: string;
+  titulo: string;
+  descripcion: string[];
+  fecha: string;
+  mensajeWhatsapp: string;
+}
+
+export const sorteos: Sorteo[] = [
+  {
+    img: "/assets/premio-mayor.webp",
+    alt: "Sorteo Diciembre 2025",
+    titulo: "Sorteo de Fin de Año 2025",
+    descripcion: [
+      "Premio mayor: una casa a tu gusto (urbana o campestre) valorada en $450 millones.",
+      "También puedes elegir entre una Ford Ranger XL, Mazda CX-30 o una BMW G310 GS.",
+      "El sorteo se juega el 20 de diciembre con la Lotería de Boyacá (sin serie).",
+      "Valor del bono: $250.000.",
+      "Además, participa en sorteos anticipados y gana bonos en efectivo por tus abonos."
+    ],
+    fecha: "20 de diciembre de 2025",
+    mensajeWhatsapp: "Hola, estoy interesado en el sorteo de fin de año",
+  },
+  {
+    img: "/assets/sorteo-motos.webp",
+    alt: "Sorteo de motos Vélez",
+    titulo: "Sorteo de Motos 2025",
+    descripcion: [
+      "Participa por una de las tres motos Yamaha 2026: NMAX, XTZ 150 y CRYPTON.",
+      "Con solo $30.000 de cuota inicial ya participas por un premio de $500.000.",
+      "Bonos por anticipos:",
+      "- Abona $60.000 antes del 25 de octubre: $500.000.",
+      "- Cancela la boleta antes del 22 de noviembre: $500.000.",
+      "Sorteo: 6 de diciembre con la Lotería de Boyacá (sin serie).",
+      "Valor del bono: $90.000."
+    ],
+    fecha: "6 de Diciembre de 2025",
+    mensajeWhatsapp: "Hola, estoy interesado en el sorteo de las motos",
+  },
+];
+---
+
+<Layout title="Sorteos">
+  <Nav />
+      <div class="grid lg:grid-cols-2 gap-4 pt-30 mb-10">
+        {
+        sorteos.map((sorteo: Sorteo) => (
+          <SorteoCard sorteo={sorteo}/>
+        ))
+        }
+      </div>
+    <Footer />
+</Layout>
