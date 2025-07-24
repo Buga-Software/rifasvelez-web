@@ -1,7 +1,8 @@
 @import "tailwindcss";
+@import "@fontsource-variable/red-hat-display";
 
 :root {
-  font-family: 'red hat display', -apple-system, sans-serif;
+  font-family: 'Red Hat Display Variable', -apple-system, sans-serif;
 
   --white-back: #ececec;
   --primary: #EC016D;
