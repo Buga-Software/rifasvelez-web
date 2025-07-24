@@ -1,0 +1,52 @@
+---
+import Layout from "@/layouts/layout.astro";
+import Nav from "@/components/nav.astro";
+import Footer from "@/components/footer.astro";
+---
+
+<Layout title="Aviso Legal">
+  <Nav />
+  <div class="pt-30 space-y-6">
+    <div
+      class="bg-white py-6 px-8 lg:py-14 lg:px-20 rounded-2xl shadow-md space-y-6"
+    >
+      <h1
+        class="text-4xl font-extrabold mb-4 text-[var(--primary)]"
+      >
+        Sé vendedor
+      </h1>
+
+      <section class="space-y-2">
+        <p class="text-lg text-gray-700">
+          En <strong>Vélez, la Tradicional de los Bugueños</strong>, siempre
+          estamos en busca de personas honestas y comprometidas que quieran
+          formar parte de nuestra red de vendedores. Si tienes <strong
+            >más de 21 años</strong
+          > y estás buscando una forma de generar ingresos de forma flexible,
+          ¡esta es tu oportunidad!
+        </p>
+        <p class="text-lg text-gray-700">
+          Solo necesitas acercarte a nuestra oficina principal con una <strong
+            >hoja de vida sencilla</strong
+          >. Nuestro equipo revisará tu información, y si cumples con los
+          requisitos, te haremos entrega de la <strong>boletería oficial</strong
+          > para que comiences a vender.
+        </p>
+        <p class="text-lg text-gray-700">
+          Ofrecemos <strong>muy buenas comisiones</strong> por venta. Todos los detalles
+          sobre pagos, sorteos y beneficios te los explicamos personalmente en la
+          oficina.
+        </p>
+        <a
+          href="https://wa.me/573169419113?text=Hola,%20estoy%20interesado%20en%20ser%20vendedor"
+          target="_blank"
+          class="flex lg:inline-block lg:w-auto w-full justify-center mt-6 bg-[var(--primary)] text-white px-6 py-3 rounded-full text-lg hover:bg-pink-700 transition"
+        >
+          Preguntar por WhatsApp
+        </a>
+      </section>
+    </div>
+
+    <Footer />
+  </div>
+</Layout>
