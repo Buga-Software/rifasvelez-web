@@ -5,6 +5,12 @@ import facebookIcon from "../../public/icons/facebook.svg";
 import instagramIcon from "../../public/icons/instagram.svg";
 import whatsappIcon from "../../public/icons/whatsapp.svg";
 import bugaIcon from "../../public/bugasoftware-favicon.svg";
+
+const socialMedia = [
+  {url: "https://www.facebook.com/velezlatradicional", icon: facebookIcon.src, alt: "Facebook"},
+  {url: "https://www.instagram.com/velezlatradicional", icon: instagramIcon.src, alt: "Instagram"},
+  {url: "https://wa.me/573169419113", icon: whatsappIcon.src, alt: "Whatsapp"},
+];
 ---
 
 <footer class="bg-white rounded-3xl p-9 shadow-md">
@@ -13,21 +19,19 @@ import bugaIcon from "../../public/bugasoftware-favicon.svg";
       <img src={logo.src} alt="Velez Logo" class="h-20 mb-2" />
       <p class="text-[var(--primary)] text-sm italic ml-1">NIT: 1115081973-6</p>
       <div class="flex gap-4 mt-4">
-        <a href="https://www.facebook.com/velezlatradicional" target="_blank" rel="noopener noreferrer">
-          <img src={facebookIcon.src} alt="Facebook" class="size-8" />
-        </a>
-        <a href="https://www.instagram.com/velezlatradicional" target="_blank" rel="noopener noreferrer">
-          <img src={instagramIcon.src} alt="Instagram" class="size-8" />
-        </a>
-        <a href="https://wa.me/573169419113" target="_blank" rel="noopener noreferrer">
-          <img src={whatsappIcon.src} alt="WhatsApp" class="size-8" />
-        </a>
+        {
+          socialMedia.map(({url, icon, alt}) => (
+            <a href={url} class="hover:opacity-60 transition-opacity" target="_blank" rel="noopener noreferrer">
+              <img class="size-8" src={icon} alt={`${alt} de Velez la tradicional`}>
+            </a>
+          ))
+        }
       </div>
     </div>
 
     <div class="flex flex-col justify-start text-[var(--primary)] text-base">
       <h3 class="font-extrabold mb-2">Contáctanos</h3>
-      <p class="mb-1">+57 3169419113</p>
+      <a class="mb-1 underline" href="tel:3169419113">+57 316 941 9113</a>
       <p class="mb-1">Carrera 14 #15-26</p>
       <p>
         Lunes a sábado <br /> 09:00 am - 12:00 pm <br /> 02:00 pm - 06:00 pm
