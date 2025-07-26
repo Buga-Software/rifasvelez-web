@@ -14,3 +14,8 @@
     background-color: var(--primary);
     color: white;
   }
+
+strong {
+  color: var(--green);
+  font-weight: 800;
+}
