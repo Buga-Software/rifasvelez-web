@@ -27,17 +27,18 @@ import "../styles/global.css";
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Velez la tradicional de los bugueños" />
 
+    <!-- Google tag (gtag.js) -->
+    <script type="text/partytown" async src="https://www.googletagmanager.com/gtag/js?id=G-LDL8GLXXE6"></script>
+    <script type="text/partytown">
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-LDL8GLXXE6');
+    </script>
+
     <title>{title}</title>
   </head>
-  <!-- Google tag (gtag.ts) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-LDL8GLXXE6"></script>
-  <script lang="ts">
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('ts', new Date());
-
-    gtag('config', 'G-LDL8GLXXE6');
-  </script>
   <body class="bg-[var(--white-back)] lg:px-32 px-6 py-5">
     <slot />
   </body>
