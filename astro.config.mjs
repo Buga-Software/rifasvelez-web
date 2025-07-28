@@ -9,4 +9,9 @@ export default defineConfig({
   },
 
   integrations: [react()],
+
+  server: {
+    host: true,
+    port: 4321,
+  },
 });
