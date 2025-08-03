@@ -2,10 +2,18 @@ import { useEffect } from "react";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 
+delete L.Icon.Default.prototype._getIconUrl;
+
 export default function MapComponent() {
   useEffect(() => {
     const mapExists = document.getElementById("map")?.innerHTML !== "";
     if (mapExists) return;
+
+    L.Icon.Default.mergeOptions({
+        iconRetinaUrl: '/leaflet/marker-icon-2x.png', 
+        iconUrl: '/leaflet/marker-icon.png',         
+        shadowUrl: '/leaflet/marker-shadow.png',     
+    });
 
     const map = L.map("map").setView([3.9073432, -76.2985562], 15);
 
