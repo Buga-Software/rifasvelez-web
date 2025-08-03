@@ -24,6 +24,7 @@ export default function Slider() {
         resetProgress: false,
         pagination: true,
         arrows: false,
+        accesibility: false,
       }}
       aria-label="Imagenes del slider"
     >
@@ -32,6 +33,8 @@ export default function Slider() {
           <img
             src={src}
             alt={alt}
+            loading={index === 0 ? 'eager' : 'lazy'}
+            fetchPriority={index === 0 ? 'high' : undefined}
             className="w-full h-auto object-contain"
           />
         </SplideSlide>
