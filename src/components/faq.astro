@@ -15,7 +15,7 @@ const faq = [
 ];
 ---
 
-<div class="gap-10 rounded-3xl text-[var(--primary)] px-9 py-6 lg:px-20 lg:py-12 bg-white shadow-md">
+<div class="gap-10 text-[var(--primary)] px-9 py-6 lg:px-20 lg:py-12">
   <h2 class="text-[var(--primary)] text-2xl lg:text-3xl font-black mb-6 text-balance">
     Preguntas frecuentes
   </h2>
@@ -24,7 +24,7 @@ const faq = [
     {
       faq.map(({ question, answer }, i) => (
         <details
-          class="group overflow-hidden cursor-pointer rounded-2xl bg-[var(--primary)] text-white transition-all duration-300"
+          class="group overflow-hidden cursor-pointer rounded-md bg-[var(--primary)] text-white transition-all duration-300"
         >
           <summary class="flex items-center justify-between gap-2 text-left text-lg lg:text-xl px-6 py-5 font-semibold marker:hidden">
             {question}
