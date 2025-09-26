@@ -6,6 +6,7 @@ interface Props {
 const { title } = Astro.props;
 
 import "../styles/global.css";
+import Footer from "@components/footer.astro";
 ---
 
 <!doctype html>
@@ -41,7 +42,10 @@ import "../styles/global.css";
 
     <title>{title}</title>
   </head>
-  <body class="bg-[var(--white-back)] lg:px-32 px-6 py-5">
-    <slot />
+  <body class="bg-[var(--white-back)]">
+    <div class="lg:px-32 px-6 py-5">
+      <slot />
+    </div>
+    <Footer />
   </body>
 </html>

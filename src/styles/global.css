@@ -4,15 +4,15 @@
 :root {
   font-family: 'Red Hat Display Variable', -apple-system, sans-serif;
 
-  --white-back: #ececec;
+  --white-back: #f3f5f9;
   --primary: #EC016D;
   --secondary: #FFEB54;
   --green: #00AB52;
 }
 
   *::selection {
-    background-color: var(--primary);
-    color: white;
+    background-color: #f7dce9;
+    color: var(--primary);
   }
 
 strong {

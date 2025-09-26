@@ -6,11 +6,11 @@ const navItems = [
   { href: '/', label: 'Inicio' },
   { href: '/ganadores', label: 'Ganadores' },
   { href: '/sorteos', label: 'Sorteos' },
-  { href: '/sevendedor', label: 'Sé vendedor!' }
+  { href: '/sevendedor', label: 'Sé vendedor!', special: true }
 ];
 ---
 
-<nav class="fixed top-3 lg:top-3 left-3 right-3 lg:left-24 lg:right-24 z-[1000] flex flex-col lg:flex-row lg:items-center justify-between px-8 py-5 bg-white/80 backdrop-blur-md rounded-3xl font-bold text-[var(--primary)] border border-white shadow-md">
+<nav class="fixed top-0 lg:top-0 left-0 right-0 lg:left-0 lg:right-0 z-[1000] flex flex-col lg:flex-row lg:items-center justify-between md:px-32 px-12 py-6 bg-white/90 font-bold text-[var(--primary)] shadow-md rounded-b-3xl backdrop-blur-md">
   <div class="flex justify-between">
     <a href="/">
       <img class="h-14" src="/assets/velez.png" alt="Logo de Velez la tradicional de los bugueños">
@@ -29,10 +29,14 @@ const navItems = [
     </button>
   </div>
 
-  <ul id="links" class="max-h-0 overflow-hidden lg:max-h-none transition-all duration-500 ease-in-out lg:flex flex-col lg:flex-row text-center lg:gap-8 space-y-2 lg:space-y-0">
-    { navItems.map(({ href, label }) => (
-      <li class={`rounded-xl hover:bg-[var(--primary)] hover:text-white transition-color duration-300 ease-in-out ${ currentPath === href ? 'bg-[var(--primary)] text-white' : 'text-[var(--primary)]'}`}>
-        <a class='px-4 py-2 block' href={href}>{label}</a>
+  <ul id="links" class="max-h-0 overflow-hidden lg:max-h-none transition-all duration-500 ease-in-out lg:flex flex-col lg:flex-row text-center lg:gap-6 space-y-2 lg:space-y-0">
+    { navItems.map(({ href, label, special }) => (
+      <li class={`rounded-xl transition-colors duration-300 ease-in-out ${currentPath === href 
+      ? 'bg-[var(--primary)] text-white' 
+      : 'text-[var(--primary)] hover:bg-[var(--primary)]/10 hover:text-[var(--primary)]'
+    }`}>
+        <!-- solo aplicamos shiny si es special Y no está active -->
+        <a class={`px-4 py-2 block ${special && currentPath !== href ? 'shiny-text' : ''}`} href={href}>{label}</a>
       </li>
     ))}
   </ul>
@@ -50,5 +54,26 @@ toggle?.addEventListener('click', () => {
 <style>
   #links li:hover, button:hover {
     cursor: pointer;
+  }
+
+  /* Efecto shiny para "Sé vendedor!" */
+  .shiny-text {
+    position: relative;
+    background: linear-gradient(
+      90deg,
+      var(--primary),
+      #ff9f19,
+      var(--primary),
+      #ff9f19
+    );
+    background-size: 300% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shine 3s linear infinite;
+  }
+
+  @keyframes shine {
+    0% { background-position: 0% center; }
+    100% { background-position: 100% center; }
   }
 </style>
