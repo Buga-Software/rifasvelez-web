@@ -1,6 +1,6 @@
 # Rifas Velez
 
-<img width="1898" height="976" alt="image" src="https://github.com/user-attachments/assets/7f481666-77db-4c36-9889-e02f06ae3ed7" />
+<img width="1901" height="976" alt="image" src="https://github.com/user-attachments/assets/976ee8ca-89a2-4486-84c3-5f7826ff8ea4" />
 
 ![Deploy Status](https://img.shields.io/badge/Deploy-Vercel-black?style=flat&logo=vercel)
 
