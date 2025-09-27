@@ -4,10 +4,10 @@
 :root {
   font-family: 'Red Hat Display Variable', -apple-system, sans-serif;
 
-  --white-back: #f3f5f9;
+  --white-back: #f6f7fa;
   --primary: #EC016D;
   --secondary: #FFEB54;
-  --green: #00AB52;
+  --green: #05753b;
 }
 
   *::selection {
@@ -17,5 +17,5 @@
 
 strong {
   color: var(--green);
-  font-weight: 800;
+  font-weight: 700;
 }
