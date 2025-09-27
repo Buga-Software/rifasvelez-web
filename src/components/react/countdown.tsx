@@ -79,31 +79,31 @@ const Countdown: React.FC<CountdownProps> = ({
         {title}
       </h3>
 
-      <div className="flex justify-evenly gap-5 font-bold">
+      <div className="flex justify-center md:justify-evenly gap-4 font-bold">
         {/* Bloque DÍAS */}
         <div className="flex flex-col items-center">
-          <span className="text-3xl md:text-4xl">
+          <span className="text-2xl md:text-3xl">
             {timeLeft.days}
           </span>
           <span className="text-xs md:text-base">días</span>
         </div>
         {/* Bloque HORAS */}
         <div className="flex flex-col items-center">
-          <span className="text-3xl md:text-4xl">
+          <span className="text-2xl md:text-3xl">
             {timeLeft.hours.toString().padStart(2, "0")}
           </span>
           <span className="text-xs md:text-base">horas</span>
         </div>
         {/* Bloque MINUTOS */}
         <div className="flex flex-col items-center">
-          <span className="text-3xl md:text-4xl">
+          <span className="text-2xl md:text-3xl">
             {timeLeft.minutes.toString().padStart(2, "0")}
           </span>
           <span className="text-xs md:text-base">minutos</span>
         </div>
         {/* Bloque SEGUNDOS */}
         <div className="flex flex-col items-center">
-          <span className="text-3xl md:text-4xl">
+          <span className="text-2xl md:text-3xl">
             {timeLeft.seconds.toString().padStart(2, "0")}
           </span>
           <span className="text-xs md:text-base">segundos</span>
