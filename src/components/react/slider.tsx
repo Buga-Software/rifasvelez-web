@@ -1,5 +1,5 @@
-import '@splidejs/react-splide/css';
-import { Splide, SplideSlide } from '@splidejs/react-splide';
+import "@splidejs/react-splide/css";
+import { Splide, SplideSlide } from "@splidejs/react-splide";
 
 interface Slide {
   src: string;
@@ -7,34 +7,34 @@ interface Slide {
 }
 
 const slides = [
-  { src: '/assets/anticipados.webp', alt: 'Anticipados' },
-  { src: '/assets/cuota-inicial-mas-adicionales.webp', alt: 'Cuota inicial' },
-  { src: '/assets/opcional-al-mayor.webp', alt: 'Opcional mayor' },
-  { src: '/assets/premio-mayor.webp', alt: 'Premio mayor' },
+  { src: "/assets/anticipados.webp", alt: "Anticipados" },
+  { src: "/assets/cuota-inicial-mas-adicionales.webp", alt: "Cuota inicial" },
+  { src: "/assets/opcional-al-mayor.webp", alt: "Opcional mayor" },
+  { src: "/assets/premio-mayor.webp", alt: "Premio mayor" },
 ];
 
 export default function Slider() {
   return (
     <Splide
       options={{
-        type: 'loop',
+        type: "loop",
         perPage: 1,
         autoplay: true,
         interval: 3000,
         resetProgress: false,
         pagination: true,
         arrows: false,
-        accesibility: false,
+        accessibility: true,
       }}
-      aria-label="Imagenes del slider"
+      aria-label="Imagenesdelslider"
     >
       {slides.map(({ src, alt }, index) => (
         <SplideSlide key={index}>
           <img
             src={src}
             alt={alt}
-            loading={index === 0 ? 'eager' : 'lazy'}
-            fetchPriority={index === 0 ? 'high' : undefined}
+            loading={index === 0 ? "eager" : "lazy"}
+            fetchPriority={index === 0 ? "high" : undefined}
             className="w-full h-auto object-contain"
           />
         </SplideSlide>
