@@ -3,7 +3,11 @@ import Layout from "@/layouts/layout.astro";
 import Nav from "@/components/nav.astro";
 ---
 
-<Layout title="¡Sé vendedor!">
+<Layout
+  title="¡Sé vendedor! - Velez la Tradicional"
+  description="Únete a nuestra red de vendedores y genera ingresos de forma flexible. Somos una empresa seria con 20 años en Buga."
+  canonicalUrl="https://rifasvelez.com/sevendedor"
+>
   <Nav />
   <main class="relative py-28 md:py-32">
     <div class="max-w-6xl mx-auto px-4 space-y-16">
@@ -58,25 +62,19 @@ import Nav from "@/components/nav.astro";
         <div
           class="grid md:grid-cols-3 gap-4 text-gray-700 text-lg leading-relaxed"
         >
-          <div
-            class="bg-gray-50 rounded-2xl p-6 shadow-md"
-          >
+          <div class="bg-gray-50 rounded-2xl p-6 shadow-md">
             <p>
               Tener <strong>más de 21 años</strong> y disponibilidad para generar
               ingresos extra a tu ritmo.
             </p>
           </div>
-          <div
-            class="bg-gray-50 rounded-2xl p-6 shadow-md"
-          >
+          <div class="bg-gray-50 rounded-2xl p-6 shadow-md">
             <p>
               Presentar una <strong>hoja de vida sencilla</strong> en nuestra oficina
               para conocerte.
             </p>
           </div>
-          <div
-            class="bg-gray-50 rounded-2xl p-6 shadow-md"
-          >
+          <div class="bg-gray-50 rounded-2xl p-6 shadow-md">
             <p>
               Recibirás la <strong>boletería oficial</strong> y comenzarás a vender
               con <strong>excelentes comisiones</strong>.
@@ -96,7 +94,9 @@ import Nav from "@/components/nav.astro";
 
   <script>
     document.addEventListener("DOMContentLoaded", () => {
-      const video = document.getElementById("agenteVideo") as HTMLVideoElement | null;
+      const video = document.getElementById(
+        "agenteVideo",
+      ) as HTMLVideoElement | null;
       const button = document.getElementById("btnVendedor");
       const buttonText = document.getElementById("btnText");
       const whatsappIcon = document.getElementById("whatsapp");
@@ -106,13 +106,26 @@ import Nav from "@/components/nav.astro";
 
         video.addEventListener("timeupdate", () => {
           if (Math.floor(video.currentTime) === 21) {
-            if (button) button.classList.add("bg-transparent", "border-2", "border-[var(--primary)]");
+            if (button)
+              button.classList.add(
+                "bg-transparent",
+                "border-2",
+                "border-[var(--primary)]",
+              );
             if (buttonText) buttonText.classList.add("text-[var(--primary)]");
-            if (whatsappIcon) whatsappIcon.classList.add("text-[var(--primary)]");
+            if (whatsappIcon)
+              whatsappIcon.classList.add("text-[var(--primary)]");
           } else {
-            if (button) button.classList.remove("bg-transparent", "border-2", "border-[var(--primary)]");
-            if (buttonText) buttonText.classList.remove("text-[var(--primary)]");
-            if (whatsappIcon) whatsappIcon.classList.remove("text-[var(--primary)]");
+            if (button)
+              button.classList.remove(
+                "bg-transparent",
+                "border-2",
+                "border-[var(--primary)]",
+              );
+            if (buttonText)
+              buttonText.classList.remove("text-[var(--primary)]");
+            if (whatsappIcon)
+              whatsappIcon.classList.remove("text-[var(--primary)]");
           }
         });
       }

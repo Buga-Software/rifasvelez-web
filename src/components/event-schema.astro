@@ -1,0 +1,67 @@
+---
+interface Props {
+  titulo: string;
+  descripcion: string;
+  fecha: string;
+  imagen: string;
+  premioMayor?: string;
+  urlParticipacion: string;
+}
+
+const { titulo, descripcion, fecha, imagen, premioMayor, urlParticipacion } =
+  Astro.props;
+
+const eventSchema = {
+  "@context": "https://schema.org",
+  "@type": "Event",
+  name: titulo,
+  description: descripcion,
+  image: imagen,
+  startDate: fecha,
+  endDate: fecha,
+  eventStatus: "https://schema.org/EventScheduled",
+  eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+  organizer: {
+    "@type": "Organization",
+    name: "Velez la tradicional de los bugueños",
+    url: "https://rifasvelez.com",
+    telephone: "+573169419113",
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: "Carrera 14 #15-26",
+      addressLocality: "Buga",
+      addressRegion: "Valle del Cauca",
+      postalCode: "76001",
+      addressCountry: "CO",
+    },
+  },
+  location: {
+    "@type": "Place",
+    name: "Buga, Colombia",
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: "Carrera 14 #15-26",
+      addressLocality: "Buga",
+      addressRegion: "Valle del Cauca",
+      postalCode: "76001",
+      addressCountry: "CO",
+    },
+  },
+  url: urlParticipacion,
+  offers: {
+    "@type": "Offer",
+    url: urlParticipacion,
+    price: "280000",
+    priceCurrency: "COP",
+    availability: "https://schema.org/PreOrder",
+  },
+  ...(premioMayor && {
+    award: {
+      "@type": "Thing",
+      name: premioMayor,
+    },
+  }),
+};
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(eventSchema)} />

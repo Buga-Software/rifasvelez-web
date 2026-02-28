@@ -1,0 +1,13 @@
+# Allow all crawlers
+User-agent: *
+Allow: /
+
+# Disallow private/admin pages (if any)
+Disallow: /admin/
+Disallow: /.well-known/
+
+# Sitemap location
+Sitemap: https://rifasvelez.com/sitemap.xml
+
+# Crawl delay for polite crawling
+Crawl-delay: 1

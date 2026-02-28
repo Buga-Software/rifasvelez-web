@@ -36,7 +36,7 @@ export const sorteos: Sorteo[] = [
       "- 21 Feb 2026 ($140.000 abonados): XTZ150 2026 (Lot. Boyacá).",
       "- 21 Mar 2026 ($170.000 abonados): Aerox 2026 (Lot. Boyacá).",
       "- 18 Abr 2026 ($200.000 abonados): V-strom 160 2026 (Lot. Boyacá).",
-      "- 16 May 2026 ($230.000 abonados): Nmax 2026 (Lot. Boyacá).",    
+      "- 16 May 2026 ($230.000 abonados): Nmax 2026 (Lot. Boyacá).",
     ],
     fecha: "2026-06-20",
     mensajeWhatsapp: "Hola, estoy interesado en el sorteo de inicio de año",
@@ -44,11 +44,13 @@ export const sorteos: Sorteo[] = [
 ];
 ---
 
-<Layout title="Sorteos">
+<Layout
+  title="Sorteos Vigentes - Velez la Tradicional"
+  description="Consulta los sorteos activos de Velez con premios increíbles. Participa en nuestras rifas y gana casas, motos, viajes y mucho más."
+  canonicalUrl="https://rifasvelez.com/sorteos"
+>
   <Nav />
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 px-4 md:px-0 mb-10 pt-30">
-        {sorteos.map((sorteo: Sorteo) => (
-          <SorteoCard sorteo={sorteo}/>
-        ))}
-      </div>
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6 px-4 md:px-0 mb-10 pt-30">
+    {sorteos.map((sorteo: Sorteo) => <SorteoCard sorteo={sorteo} />)}
+  </div>
 </Layout>
