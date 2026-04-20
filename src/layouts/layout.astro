@@ -57,18 +57,9 @@ import SchemaSEO from "@components/schema-seo.astro";
     />
     <meta property="og:locale" content="es_CO" />
 
-    <!-- Preload critical resources -->
-    <link
-      rel="preload"
-      as="image"
-      href="/assets/anticipados.webp"
-      fetchpriority="high"
-    />
-    <link
-      rel="preload"
-      as="font"
-      href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@400;500;700&display=swap"
-    />
+    <!-- Preconnect to external domains -->
+    <link rel="preconnect" href="https://res.cloudinary.com" />
+    <link rel="dns-prefetch" href="https://res.cloudinary.com" />
 
     <!-- SEO Schema Component -->
     <SchemaSEO
@@ -92,12 +83,29 @@ import SchemaSEO from "@components/schema-seo.astro";
       gtag("config", "G-LDL8GLXXE6");
     </script>
 
+    <!-- Preload Animation Manager -->
+    <script is:inline>
+      document.documentElement.classList.add("preload-texts", "preload-hero");
+
+      // Fallback para conexiones muy lentas (3 segundos máximo)
+      const timeout = setTimeout(() => {
+        document.documentElement.classList.remove("preload-texts");
+        document.documentElement.classList.add("fonts-loaded");
+      }, 6000);
+
+      document.fonts.ready.then(() => {
+        clearTimeout(timeout);
+        if (document.documentElement.classList.contains("preload-texts")) {
+          document.documentElement.classList.remove("preload-texts");
+          document.documentElement.classList.add("fonts-loaded");
+        }
+      });
+    </script>
+
     <title>{title} - Velez la Tradicional de los Bugueños</title>
   </head>
-  <body class="bg-[var(--white-back)]">
-    <div class="lg:px-32 px-2 py-5">
-      <slot />
-    </div>
+  <body class="bg-[#f6f7fa]">
+    <slot />
     <Footer />
   </body>
 </html>

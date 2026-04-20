@@ -10,7 +10,59 @@ import Gallery from "@components/gallery.astro";
   canonicalUrl="https://rifasvelez.com/ganadores"
 >
   <Nav />
-  <div class="pt-36 space-y-6">
-    <Gallery />
-  </div>
+  
+  <main class="min-h-screen bg-gray-50">
+    <!-- Hero Section -->
+    <section class="relative pt-28 md:pt-36 pb-12 md:pb-32 px-4 md:px-12 bg-[#EC016D] overflow-hidden">
+      <!-- Decorative pattern -->
+      <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(white 1px, transparent 1px); background-size: 24px 24px;"></div>
+      
+      <div class="relative z-10 max-w-4xl mx-auto text-center space-y-4 md:space-y-6">
+        <div class="inline-flex items-center justify-center space-x-2 bg-white/10 backdrop-blur-sm border border-white/30 rounded-full px-3 py-1 md:px-4 md:py-1.5 mb-2">
+          <span class="text-white font-syne font-semibold text-xs md:text-sm tracking-wide" id="counter">
+            Cargando ganadores...
+          </span>
+        </div>
+        
+        <h1 class="text-4xl md:text-5xl lg:text-7xl font-syne font-bold text-white leading-tight tracking-tight drop-shadow-sm">
+          Nuestros Ganadores
+        </h1>
+        
+        <p class="font-work-sans text-white/90 text-base md:text-lg lg:text-xl max-w-2xl mx-auto">
+          Ellos ya cambiaron su vida con Vélez
+        </p>
+      </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="max-w-[1400px] mx-auto px-4 md:px-8 xl:px-12 py-10 md:py-16">
+      <Gallery />
+    </section>
+
+    <!-- Espacio Vacío para el Footer (Previene traslape) -->
+    <div class="h-[900px] md:h-[400px] w-full pointer-events-none" aria-hidden="true"></div>
+  </main>
 </Layout>
+
+<script>
+  // Simple animated counter
+  document.addEventListener('DOMContentLoaded', () => {
+    const counterElement = document.getElementById('counter');
+    if (!counterElement) return;
+    
+    let count = 0;
+    const target = 200;
+    const duration = 2000; // 2s
+    const interval = Math.max(16, duration / target); // roughly 60fps
+    const increment = Math.ceil(target / (duration / interval));
+    
+    const timer = setInterval(() => {
+      count += increment;
+      if (count >= target) {
+        count = target;
+        clearInterval(timer);
+      }
+      counterElement.textContent = `+${count.toLocaleString('es-CO')} ganadores felices`;
+    }, interval);
+  });
+</script>

@@ -1,27 +1,51 @@
 ---
+// Configuración básica de las fotos
 const images = Array.from({ length: 27 }, (_, i) => ({
+  id: i + 1,
   src: `/assets/pictures/foto-${i + 1}.webp`,
-  alt: `Foto ${i + 1}`,
+  alt: `Feliz Ganador ${i + 1}`,
 }));
 ---
 
-<div class="columns-2 sm:columns-3 lg:columns-5 gap-4 space-y-4">
-  {images.map((img) => (
-    <a
-      class="cursor-zoom-in block break-inside-avoid"
-      data-fancybox="gallery"
-      data-src={img.src}
-      data-caption={img.alt}
-    >
-      <img class="w-full rounded-lg shadow" src={img.src} alt={img.alt} loading="lazy" />
-    </a>
-  ))}
+<div class="gallery-container">
+  <!-- Masonry Grid -->
+  <div class="columns-1 md:columns-2 lg:columns-4 gap-4 space-y-4" id="gallery-grid">
+    {images.map((img) => (
+      <a
+        class="group cursor-zoom-in block break-inside-avoid relative overflow-hidden rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 bg-zinc-200"
+        data-fancybox="gallery"
+        data-src={img.src}
+        data-caption={img.alt}
+      >
+        <img 
+          class="w-full object-cover transform transition-transform duration-500 group-hover:scale-105" 
+          src={img.src} 
+          alt={img.alt} 
+          loading="lazy" 
+        />
+        
+        <!-- Hover Overlay Simple -->
+        <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+      </a>
+    ))}
+  </div>
 </div>
 
 <script>
-import { Fancybox } from '@fancyapps/ui/dist/fancybox/';
-import '@fancyapps/ui/dist/fancybox/fancybox.css';
+  import { Fancybox } from '@fancyapps/ui/dist/fancybox/';
+  import '@fancyapps/ui/dist/fancybox/fancybox.css';
 
-Fancybox.bind('[data-fancybox]', {
-});
+  document.addEventListener("DOMContentLoaded", () => {
+    // Iniciar Fancybox con configuraciones personalizadas
+    Fancybox.bind('[data-fancybox]', {
+      backdropClick: "close",
+      Hash: false,
+      Thumbs: false,
+      styles: {
+        container: {
+          background: "rgba(0, 0, 0, 0.92)",
+        },
+      },
+    });
+  });
 </script>

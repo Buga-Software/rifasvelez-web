@@ -1,68 +1,133 @@
 ---
-import logo from "../../public/assets/velez.png";
+import logo from "@public/assets/velez.png";
 
-import facebookIcon from "../../public/icons/facebook.svg";
-import instagramIcon from "../../public/icons/instagram.svg";
-import whatsappIcon from "../../public/icons/whatsapp.svg";
-import bugaIcon from "../../public/bugasoftware-favicon.svg";
+import facebookIcon from "@public/icons/facebook.svg";
+import instagramIcon from "@public/icons/instagram.svg";
+import whatsappIcon from "@public/icons/whatsapp.svg";
+import bugaIcon from "@public/bugasoftware-favicon.svg";
 
 const socialMedia = [
-  {url: "https://www.facebook.com/velezlatradicional", icon: facebookIcon.src, alt: "Facebook"},
-  {url: "https://www.instagram.com/velezlatradicional", icon: instagramIcon.src, alt: "Instagram"},
-  {url: "https://wa.me/573169419113", icon: whatsappIcon.src, alt: "Whatsapp"},
+  {
+    url: "https://www.facebook.com/velezlatradicional",
+    icon: facebookIcon.src,
+    alt: "Facebook",
+  },
+  {
+    url: "https://www.instagram.com/velezlatradicional",
+    icon: instagramIcon.src,
+    alt: "Instagram",
+  },
+  {
+    url: "https://wa.me/573169419113",
+    icon: whatsappIcon.src,
+    alt: "Whatsapp",
+  },
 ];
 ---
 
-<footer class="bg-white px-20 py-6 relative w-full">
-  <div class="grid grid-cols-1 md:grid-cols-3 gap-8 p-6">
-    <div class="flex flex-col items-start">
-      <img src={logo.src} alt="Velez Logo" class="h-20 mb-2" />
-      <p class="text-[var(--primary)] text-sm italic ml-1">NIT: 1115081973-6</p>
-      <div class="flex gap-4 mt-4">
-        {
-          socialMedia.map(({url, icon, alt}) => (
-            <a href={url} class="hover:opacity-60 transition-opacity" target="_blank" rel="noopener noreferrer">
-              <img class="size-8" src={icon} alt={`${alt} de Velez la tradicional`}>
-            </a>
-          ))
-        }
+<footer
+  class="relative z-10 md:-mt-[380px] -mt-[803px] mx-4 md:mx-6 bg-white rounded-t-[2.5rem] px-6 py-10 md:px-12 md:py-12 shadow-sm text-pink-600"
+>
+  <div class="max-w-7xl mx-auto">
+    <div
+      class="grid grid-cols-1 md:grid-cols-3 gap-10 border-b border-pink-100 pb-10"
+    >
+      <div
+        class="flex flex-col items-center md:items-start text-center md:text-left"
+      >
+        <img
+          src={logo.src}
+          alt="Logo Velez"
+          class="h-16 md:h-20 mb-3 object-contain"
+        />
+        <p class="text-sm italic font-medium opacity-80 mb-6">
+          NIT: 1115081973-6
+        </p>
+        <div class="flex gap-4">
+          {
+            socialMedia.map(({ url, icon, alt }) => (
+              <a
+                href={url}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="hover:scale-110 hover:opacity-80 transition-all duration-300"
+                aria-label={alt}
+              >
+                <img
+                  class="size-7 md:size-8"
+                  src={icon}
+                  alt={`${alt} de Velez la tradicional`}
+                />
+              </a>
+            ))
+          }
+        </div>
+      </div>
+
+      <div
+        class="flex flex-col items-center md:items-start text-center md:text-left"
+      >
+        <h3 class="font-bold text-lg mb-4 text-pink-700">Contáctanos</h3>
+        <div class="space-y-2 text-base text-pink-600">
+          <a
+            href="tel:+573169419113"
+            class="block hover:underline transition-all"
+          >
+            +57 316 941 9113
+          </a>
+          <p>Carrera 14 #15-26</p>
+          <div class="pt-2 leading-relaxed">
+            <p class="font-medium">Lunes a sábado</p>
+            <p class="opacity-90">09:00 am - 12:00 pm</p>
+            <p class="opacity-90">02:00 pm - 06:00 pm</p>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="flex flex-col items-center md:items-start text-center md:text-left"
+      >
+        <h3 class="font-bold text-lg mb-4 text-pink-700">Información legal</h3>
+        <nav class="flex flex-col space-y-3 text-base text-pink-600">
+          <a
+            href="/avisolegal"
+            class="hover:underline hover:text-pink-500 transition-colors"
+            >Aviso legal</a
+          >
+          <a
+            href="/tyc"
+            class="hover:underline hover:text-pink-500 transition-colors"
+            >Términos y condiciones</a
+          >
+          <a
+            href="/privacidad"
+            class="hover:underline hover:text-pink-500 transition-colors"
+            >Políticas de privacidad</a
+          >
+        </nav>
       </div>
     </div>
 
-    <div class="flex flex-col justify-start text-[var(--primary)] text-base">
-      <h3 class="font-extrabold mb-2">Contáctanos</h3>
-      <a class="mb-1 underline" href="tel:3169419113">+57 316 941 9113</a>
-      <p class="mb-1">Carrera 14 #15-26</p>
-      <p>
-        Lunes a sábado <br /> 09:00 am - 12:00 pm <br /> 02:00 pm - 06:00 pm
-      </p>
-    </div>
+    <div
+      class="flex flex-col md:flex-row justify-between items-center pt-6 gap-4 text-sm text-pink-500 opacity-90"
+    >
+      <div
+        class="flex flex-col md:flex-row items-center gap-3 text-center md:text-left"
+      >
+        <span
+          class="font-bold bg-pink-50 text-pink-600 px-2.5 py-1 rounded-md text-xs tracking-wide"
+          >v2.0</span
+        >
+        <p>© {new Date().getFullYear()} Todos los derechos reservados.</p>
+      </div>
 
-    <div class="flex flex-col justify-start text-[var(--primary)] text-base">
-      <h3 class="font-extrabold mb-2">Información legal</h3>
-      <a href="/avisolegal" class="mb-1 underline">Aviso legal</a>
-      <a href="/tyc" class="mb-1 underline">Términos y condiciones</a>
-      <a href="/privacidad" class="underline">Políticas de privacidad</a>
-    </div>
-  </div>
-
-  <hr class="border-t border-[var(--primary)] mx-6 mt-4" />
-
-  <div class="flex flex-col lg:flex-row justify-between items-center lg:items-start px-6 py-4 text-sm text-[var(--primary)] gap-3">
-    <div class="text-center lg:text-left space-y-1">
-      <p class="font-bold">Versión 1.0.1</p>
-      <p>© 2025 Todos los derechos reservados.</p>
-    </div>
-
-    <div class="flex flex-col-reverse lg:flex-row items-center gap-2 mt-6">
-      <img src={bugaIcon.src} alt="Buga Software" class="size-6" />
       <a
         href="https://bugasoftware.com"
         target="_blank"
         rel="noopener noreferrer"
-        class="hover:underline"
+        class="flex items-center gap-2 hover:opacity-70 transition-opacity group"
       >
-        Desarrollado por Buga Software
+        <img src={bugaIcon.src} alt="Buga Software" class="size-6" />
       </a>
     </div>
   </div>

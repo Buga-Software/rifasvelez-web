@@ -2,11 +2,9 @@
 import Layout from "@layouts/layout.astro";
 import Nav from "@components/nav.astro";
 import Hero from "@components/hero.astro";
-import About from "@components/about.astro";
-import LastWinner from "@components/lastWinner.astro";
-import Office from "@components/office.astro";
-import Whatsappbutton from "@/components/whatsappbutton.astro";
-import FAQ from "@components/faq.astro";
+import NextRaffle from "@components/nextRaffle.astro";
+import HowToParticipate from "@components/howToParticipate.astro";
+import Winners from "@components/winners.astro";
 ---
 
 <Layout
@@ -14,14 +12,9 @@ import FAQ from "@components/faq.astro";
   description="Empresa de sorteos con más de 20 años transformando sueños en realidad. Conoce nuestros premios, ganadores y únete a miles de personas felices."
   canonicalUrl="https://rifasvelez.com/"
 >
-  <div class="pt-28 space-y-5">
-    <Nav />
-    <Hero />
-    <About />
-    <LastWinner />
-    <Office />
-    <FAQ />
-    <Whatsappbutton />
-    <div></div>
-  </div></Layout
->
+  <Nav />
+  <Hero />
+  <NextRaffle />
+  <HowToParticipate />
+  <Winners />
+</Layout>

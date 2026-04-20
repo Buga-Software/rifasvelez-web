@@ -1,8 +1,9 @@
 ---
 import Layout from "@/layouts/layout.astro";
 import Nav from "@/components/nav.astro";
-import SorteoCard from "@components/sorteoCard.astro";
+import WhatsappIcon from "@/components/icons/WhatsappIcon.astro";
 
+// Interfaces
 export interface Sorteo {
   img: string;
   alt: string;
@@ -12,35 +13,32 @@ export interface Sorteo {
   mensajeWhatsapp: string;
 }
 
+// Datos de los sorteos
 export const sorteos: Sorteo[] = [
   {
-    img: "/assets/gran-sorteo-2026.webp",
+    img: "https://res.cloudinary.com/dmr7qtfkk/image/upload/v1775249949/premio-mayor_bkmpjl.webp",
     alt: "Sorteo de casa evaluada en 400 millones y otros premios adicionales",
-    titulo: "Gran sorteo de inicio de año 2026",
+    titulo: "Gran Sorteo Junio 2026",
     descripcion: [
-      "GRAN SORTEO 2026",
-      "Valor del Bono: $280.000",
-      "PREMIO MAYOR",
-      "Casa de $400 millones (libre de impuestos).",
-      "Juega: 20 de junio con Lotería de Boyacá (sin serie).",
-      "PREMIO FIDELIDAD",
-      "Viaje a San Andrés para dos personas (al cancelar el total).",
-      "Juega: 22 de junio de 2026.",
-      "INCENTIVOS POR PAGO",
-      "Cuota inicial $50.000: Participa por $20 millones.",
-      "Abonos de $30.000: Participa por $5 millones (mismo día del abono).",
-      "PREMIOS ANTICIPADOS (Requisito de saldo abonado)",
-      "Todos juegan sin serie.",
-      "- 17 Dic ($80.000 abonados): $10 millones (Lot. Valle).",
-      "- 21 Ene 2026 ($110.000 abonados): Crypton 2026 (Lot. Valle).",
-      "- 21 Feb 2026 ($140.000 abonados): XTZ150 2026 (Lot. Boyacá).",
-      "- 21 Mar 2026 ($170.000 abonados): Aerox 2026 (Lot. Boyacá).",
-      "- 18 Abr 2026 ($200.000 abonados): V-strom 160 2026 (Lot. Boyacá).",
-      "- 16 May 2026 ($230.000 abonados): Nmax 2026 (Lot. Boyacá).",
+      "PREMIO MAYOR: Casa de $400 millones, ¡libre de impuestos!",
+      "Viaje a San Andrés para dos personas (cancelando total).",
+      "Incentivos por pago oportuno: Participa por hasta $20 millones adicionales.",
     ],
-    fecha: "2026-06-20",
-    mensajeWhatsapp: "Hola, estoy interesado en el sorteo de inicio de año",
+    fecha: "June 20, 2026 22:30:00",
+    mensajeWhatsapp: "Hola, estoy interesado en el gran sorteo de inicio de año",
   },
+  {
+    img: "https://res.cloudinary.com/dmr7qtfkk/image/upload/v1775393456/Rifa_Motos_2025_vh6vqs.png",
+    alt: "Sorteo Motos 2026",
+    titulo: "Sorteo Motos 2026",
+    descripcion: [
+      "Sorteos mensuales (Anticipados) si tienes tu bono al día.",
+      "Motos Yamaha Crypton, XTZ150, Aerox, V-strom y Nmax a lo largo de los meses.",
+      "Para participar en cada uno, solo debes cumplir la meta de abono mensual.",
+    ],
+    fecha: "Apr 25, 2026 22:30:00",
+    mensajeWhatsapp: "Hola, estoy interesado en el sorteo de las motos",
+  }
 ];
 ---
 
@@ -50,7 +48,124 @@ export const sorteos: Sorteo[] = [
   canonicalUrl="https://rifasvelez.com/sorteos"
 >
   <Nav />
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-6 px-4 md:px-0 mb-10 pt-30">
-    {sorteos.map((sorteo: Sorteo) => <SorteoCard sorteo={sorteo} />)}
-  </div>
+  
+  <main class="min-h-screen bg-gray-50">
+    <!-- Hero Section -->
+    <section class="relative pt-28 md:pt-36 pb-12 md:pb-32 px-4 md:px-12 bg-[#EC016D] overflow-hidden">
+      <!-- Decorative pattern -->
+      <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(white 1px, transparent 1px); background-size: 24px 24px;"></div>
+      
+      <div class="relative z-10 max-w-4xl mx-auto text-center space-y-4 md:space-y-6">
+        
+        <h1 class="text-4xl md:text-5xl lg:text-7xl font-syne font-bold text-white leading-tight tracking-tight drop-shadow-sm">
+          Sorteos Activos
+        </h1>
+        
+        <p class="font-work-sans text-white/90 text-base md:text-lg lg:text-xl max-w-2xl mx-auto">
+          Participa en nuestras rifas y gana casas, motos, viajes y mucho más.
+        </p>
+      </div>
+    </section>
+
+    <!-- Grid de Sorteos -->
+    <div class="max-w-7xl mx-auto px-4 md:px-20 grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 mt-10 md:mt-16 text-left relative z-10">
+      {sorteos.map((sorteo) => (
+        <article class="bg-white rounded-3xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.04)] border border-gray-100 flex flex-col group hover:shadow-[0_30px_70px_rgba(236,1,109,0.1)] transition-all duration-500">
+          
+          <div class="relative w-full overflow-hidden">
+            <img 
+              src={sorteo.img} 
+              alt={sorteo.alt} 
+              class="w-full h-full object-cover"
+            />
+          </div>
+
+          <!-- MIDDLE: Countdown integrado -->
+          <div class="raffle-countdown w-full px-6 py-6 md:py-8 bg-gray-50/50 border-b border-gray-100" data-target-date={sorteo.fecha}>
+            <div class="flex items-center justify-between gap-2 max-w-sm mx-auto">
+              <div class="flex flex-col items-center">
+                <span class="count-days text-xl sm:text-3xl font-syne font-bold text-gray-800 tracking-tight">00</span>
+                <span class="text-[9px] text-gray-400 font-bold uppercase mt-1 tracking-widest">Días</span>
+              </div>
+              <span class="text-gray-300 font-light text-xl sm:text-2xl mb-1">:</span>
+              <div class="flex flex-col items-center">
+                <span class="count-hours text-xl sm:text-3xl font-syne font-bold text-gray-800 tracking-tight">00</span>
+                <span class="text-[9px] text-gray-400 font-bold uppercase mt-1 tracking-widest">Hrs</span>
+              </div>
+              <span class="text-gray-300 font-light text-xl sm:text-2xl mb-1">:</span>
+              <div class="flex flex-col items-center">
+                <span class="count-minutes text-xl sm:text-3xl font-syne font-bold text-gray-800 tracking-tight">00</span>
+                <span class="text-[9px] text-gray-400 font-bold uppercase mt-1 tracking-widest">Min</span>
+              </div>
+              <span class="text-gray-300 font-light text-xl sm:text-2xl mb-1">:</span>
+              <div class="flex flex-col items-center">
+                <span class="count-seconds text-xl sm:text-3xl font-syne font-bold text-pink-500 tracking-tight">00</span>
+                <span class="text-[9px] text-pink-400 font-bold uppercase mt-1 tracking-widest">Seg</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- BOTTOM: Botón de Acción -->
+          <div class="p-6 md:p-8 flex flex-col">
+            <a 
+              href={`https://wa.me/573169419113?text=${encodeURIComponent(sorteo.mensajeWhatsapp)}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="w-full flex justify-center items-center gap-3 text-[#25D366] text-base font-semibold hover:opacity-80 transition-opacity"
+            >
+              <WhatsappIcon class="size-6" fill="#25D366" />
+              Contactar por Whatsapp
+            </a>
+          </div>
+        </article>
+      ))}
+    </div>
+    
+    <!-- Espacio Vacío para el Footer (Previene traslape) -->
+    <div class="h-[900px] md:h-[400px] w-full pointer-events-none" aria-hidden="true"></div>
+  </main>
 </Layout>
+
+<script>
+  const updateCountdowns = () => {
+    const countdowns = document.querySelectorAll('.raffle-countdown');
+    const now = new Date().getTime();
+    
+    countdowns.forEach(cnt => {
+      let targetDateStr = cnt.getAttribute('data-target-date');
+      if(!targetDateStr) return;
+      
+      let targetDate = new Date(targetDateStr).getTime();
+      let distance = targetDate - now;
+      
+      // Auto-refresh a año futuro si ya pasó (Para la demo del sitio)
+      if (distance < 0) {
+        const currentYear = new Date().getFullYear();
+        const fallbackRegex = new RegExp(`\\d{4}`);
+        const newStr = targetDateStr.replace(fallbackRegex, (currentYear + 1).toString());
+        targetDate = new Date(newStr).getTime();
+        distance = targetDate - now;
+      }
+      
+      if (distance < 0) return;
+      
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+      
+      const setTime = (selector: string, val: number) => {
+        const el = cnt.querySelector(selector);
+        if(el) el.textContent = val.toString().padStart(2, '0');
+      };
+
+      setTime('.count-days', days);
+      setTime('.count-hours', hours);
+      setTime('.count-minutes', minutes);
+      setTime('.count-seconds', seconds);
+    });
+  };
+
+  updateCountdowns();
+  setInterval(updateCountdowns, 1000);
+</script>

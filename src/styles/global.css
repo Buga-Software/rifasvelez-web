@@ -1,21 +1,101 @@
 @import "tailwindcss";
-@import "@fontsource-variable/red-hat-display";
+@import "@fontsource-variable/syne";
+@import "@fontsource-variable/work-sans";
 
-:root {
-  font-family: 'Red Hat Display Variable', -apple-system, sans-serif;
 
-  --white-back: #f6f7fa;
-  --primary: #EC016D;
-  --secondary: #FFEB54;
-  --green: #05753b;
+*::selection {
+  background-color: #e2fdef;
+  color: #009747;
 }
 
-  *::selection {
-    background-color: #f7dce9;
-    color: var(--primary);
+body {
+  font-family: "Work Sans Variable", sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Syne Variable", sans-serif;
+}
+
+button,a {
+  user-select: none;
+}
+
+img {
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+@keyframes textBlurIn {
+  0% {
+    opacity: 0;
+    filter: blur(12px);
+    transform: translateY(15px);
+  }
+  100% {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0);
+  }
+}
+
+html.preload-texts h1, 
+html.preload-texts h2, 
+html.preload-texts h3, 
+html.preload-texts h4, 
+html.preload-texts h5, 
+html.preload-texts h6, 
+html.preload-texts p, 
+html.preload-texts a, 
+html.preload-texts button, 
+html.preload-texts li, 
+html.preload-texts label,
+html.preload-texts span,
+html.preload-texts img {
+  opacity: 0 !important;
+  pointer-events: none;
+}
+
+html.fonts-loaded h1, 
+html.fonts-loaded h2, 
+html.fonts-loaded h3, 
+html.fonts-loaded h4, 
+html.fonts-loaded h5, 
+html.fonts-loaded h6, 
+html.fonts-loaded p, 
+html.fonts-loaded a, 
+html.fonts-loaded button, 
+html.fonts-loaded li, 
+html.fonts-loaded label,
+html.fonts-loaded span,
+html.fonts-loaded img {
+  animation: textBlurIn 1.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+@layer components {
+  .primary-button {
+    @apply inline-flex items-center justify-center rounded-full bg-pink-600 px-8 py-2.5 text-white transition-all duration-300 hover:brightness-110 active:scale-[0.98] shadow-lg shadow-pink-600/20;
   }
 
-strong {
-  color: var(--green);
-  font-weight: 700;
+  .secondary-button {
+    @apply inline-flex items-center justify-center rounded-full border-2 border-white/20 bg-white/5 px-6 py-2.5 text-white backdrop-blur-md active:scale-[0.98] transition-all duration-300 hover:bg-white/10 hover:border-white/40;
+  }
+}
+
+html {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer 10+ and Edge (Legacy) */
+  scroll-behavior: smooth;
+}
+
+html::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, and newer versions of Edge (WebKit/Blink) */
 }
