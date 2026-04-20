@@ -1,92 +1,69 @@
 ---
-const { pathname } = new URL(Astro.request.url);
-const currentPath = pathname.replace(/\/$/, '') || '/';
+import WhatsappIcon from "./icons/WhatsappIcon.astro";
 
-const navItems = [
-  { href: '/', label: 'Inicio' },
-  { href: '/ganadores', label: 'Ganadores' },
-  { href: '/sorteos', label: 'Sorteos' },
-  { href: '/sevendedor', label: 'Sé vendedor!', special: true }
+const layers = [
+  { blur: "1px", mask: "linear-gradient(0deg, transparent, #000 8%)" },
+  { blur: "4px", mask: "linear-gradient(0deg, transparent 8%, #000 16%)" },
+  { blur: "8px", mask: "linear-gradient(0deg, transparent 16%, #000 24%)" },
+  { blur: "16px", mask: "linear-gradient(0deg, transparent 24%, #000 36%)" },
+  { blur: "24px", mask: "linear-gradient(0deg, transparent 36%, #000 48%)" },
+  { blur: "32px", mask: "linear-gradient(0deg, transparent 48%, #000 60%)" },
 ];
 ---
 
-<nav class="fixed top-0 lg:top-0 left-0 right-0 lg:left-0 lg:right-0 z-[1000] flex flex-col lg:flex-row lg:items-center justify-between md:px-32 px-12 py-6 bg-white/90 font-bold text-[var(--primary)] shadow-md rounded-b-3xl backdrop-blur-md">
-  <div class="flex justify-between">
-    <a href="/">
-      <img class="h-14" src="/assets/velez.png" alt="Logo de Velez la tradicional de los bugueños">
-    </a>
-    <button class="lg:hidden" id="toggle" aria-label="Toggle navigation menu">
-      <svg class="transition-opacity duration-300 ease-in-out" id="burguer" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-        <path id="line-top" d="M4 8l16 0" />
-        <path id="line-bottom" d="M4 16l16 0" />
-      </svg>
-      <svg id="x" class="hidden transition-opacity duration-300 ease-in-out" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-        <path d="M18 6l-12 12" />
-        <path d="M6 6l12 12" />
-      </svg>
-    </button>
+<header
+  class="fixed top-0 left-0 right-0 z-[1000] h-24 flex items-center justify-between lg:px-32 px-6 text-white"
+>
+  <div
+    class="absolute inset-0 pointer-events-none grid h-[7rem] top-0 overflow-hidden"
+  >
+    {
+      layers.map(({ blur, mask }) => (
+        <div
+          class="col-start-1 row-start-1 transition-opacity duration-200"
+          style={{
+            backdropFilter: `blur(${blur})`,
+            WebkitBackdropFilter: `blur(${blur})`,
+            maskImage: mask,
+            WebkitMaskImage: mask,
+          }}
+        />
+      ))
+    }
+
+    <div
+      class="col-start-1 row-start-1 bg-gradient-to-b from-black/20 via-black/20 to-transparent"
+    >
+    </div>
   </div>
 
-  <ul id="links" class="max-h-0 overflow-hidden lg:max-h-none transition-all duration-500 ease-in-out lg:flex flex-col lg:flex-row text-center lg:gap-6 space-y-2 lg:space-y-0">
-    { navItems.map(({ href, label, special }) => (
-      <li class={`rounded-xl transition-colors duration-300 ease-in-out ${currentPath === href 
-      ? 'bg-[var(--primary)] text-white' 
-      : 'text-[var(--primary)] hover:bg-[var(--primary)]/10 hover:text-[var(--primary)]'
-    }`}>
-        <!-- solo aplicamos shiny si es special Y no está active -->
-        <a class={`px-4 py-2 block ${special && currentPath !== href ? 'shiny-text' : ''}`} href={href}>{label}</a>
-      </li>
-    ))}
+  <div class="relative flex-shrink-0">
+    <a href="/" class="flex items-center select-none">
+      <img src="/assets/velez.png" alt="Vélez" class="h-14 w-auto" />
+    </a>
+  </div>
+
+  <ul class="relative hidden md:flex items-center gap-14 mb-3">
+    <li>
+      <a href="/" class="hover:opacity-70 transition-opacity">Inicio</a>
+    </li>
+    <li>
+      <a href="/sorteos" class="hover:opacity-70 transition-opacity">Sorteos</a>
+    </li>
+    <li>
+      <a href="/ganadores" class="hover:opacity-70 transition-opacity"
+        >Ganadores</a
+      >
+    </li>
   </ul>
-</nav>
 
-<script>
-function handleToggle() {
-  const links = document.getElementById('links');
-  const burguer = document.getElementById('burguer');
-  const x = document.getElementById('x');
-  
-  links?.classList.toggle('mt-8');
-  links?.classList.toggle('max-h-96');
-  burguer?.classList.toggle('hidden');
-  x?.classList.toggle('hidden');
-}
-
-const toggle = document.getElementById('toggle');
-toggle?.addEventListener('click', handleToggle);
-toggle?.addEventListener('keydown', (e) => {
-  if (e instanceof KeyboardEvent && (e.key === 'Enter' || e.key === ' ')) {
-    e.preventDefault();
-    handleToggle();
-  }
-});
-</script>
-
-<style>
-  #links li:hover, button:hover {
-    cursor: pointer;
-  }
-
-  /* Efecto shiny para "Sé vendedor!" */
-  .shiny-text {
-    position: relative;
-    background: linear-gradient(
-      90deg,
-      var(--primary),
-      #ff9f19,
-      var(--primary),
-      #ff9f19
-    );
-    background-size: 300% auto;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: shine 3s linear infinite;
-  }
-
-  @keyframes shine {
-    0% { background-position: 0% center; }
-    100% { background-position: 100% center; }
-  }
-</style>
+  <div class="relative flex items-center">
+    <a
+      href="https://wa.me/573169419113"
+      class="inline-flex items-center justify-center rounded-full bg-[#10bf50] px-6 py-2.5 text-white active:scale-[0.98] transition-all duration-300 shadow-xl"
+    >
+      <WhatsappIcon class="size-6 mr-2" fill="#fff" />
+      Ir a WhatsApp
+    </a>
+  </div>
+</header>

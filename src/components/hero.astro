@@ -1,31 +1,200 @@
 ---
-import Slider from "@components/react/slider.tsx";
+const colDate = new Intl.DateTimeFormat("en-US", {
+  timeZone: "America/Bogota",
+  hour: "numeric",
+  hour12: false,
+}).format(new Date());
+
+const hour = parseInt(colDate);
+const isNight = hour >= 18 || hour < 6;
+
+const dayImage =
+  "https://res.cloudinary.com/dmr7qtfkk/image/upload/v1775234910/1_w4k7do.png";
+const nightImage =
+  "https://res.cloudinary.com/dmr7qtfkk/image/upload/v1775234910/2_cojxh2.png";
+const initialImage = isNight ? nightImage : dayImage;
 ---
 
-<header>
+<main class="sticky top-0 z-0 h-screen w-full overflow-hidden bg-black">
+  <picture>
+    <img
+      id="hero-image"
+      src={initialImage}
+      data-day={dayImage}
+      data-night={nightImage}
+      alt="Vélez la Tradicional"
+      class="hero-entrance pointer-events-none h-full w-full select-none object-cover transition-opacity duration-1000 ease-in-out"
+      loading="eager"
+      fetchpriority="high"
+    />
+  </picture>
+
   <div
-    class="grid gap-5 grid-rows-[auto_auto] md:grid-rows-none md:grid-cols-[3fr_1fr] h-full items-stretch"
+    class="pointer-events-none absolute inset-0 bg-gradient-to-tr from-black/90 via-black/20 to-transparent"
   >
-    <div
-      class="bg-zinc-300 w-full order-2 md:order-1 rounded-2xl overflow-hidden h-auto lg:h-full"
-    >
-      <Slider client:only="react" />
-    </div>
-    <div
-      class="order-1 md:order-2 rounded-2xl overflow-hidden h-auto lg:h-full"
-    >
-      <video
-        autoplay
-        loop
-        playsinline
-        controls
-        muted
-        preload="metadata"
-        aria-hidden="true"
-        class="w-full h-full object-cover"
+  </div>
+
+  <div
+    id="night-overlay"
+    class={`absolute inset-0 bg-blue-900/10 pointer-events-none transition-opacity duration-1000 ${isNight ? "opacity-100" : "opacity-0"}`}
+  >
+  </div>
+
+  <div
+    id="day-shadow"
+    class={`absolute inset-0 bg-black/30 pointer-events-none transition-opacity duration-1000 ${!isNight ? "opacity-100" : "opacity-0"}`}
+  >
+  </div>
+
+  <div
+    class="absolute inset-x-0 bottom-40 flex justify-center px-6 md:justify-start md:px-20"
+  >
+    <div class="flex max-w-3xl flex-col space-y-6 md:space-y-8">
+      <h1
+        class="font-syne text-7xl font-semibold text-white tracking-tighter leading-none drop-shadow-2xl"
       >
-        <source src="https://7pvbqbb2kpru9sbw.public.blob.vercel-storage.com/Velez.mp4" type="video/mp4" />
-      </video>
+        Hacemos realidad <br /> tus
+        <span class="font-bold text-pink-500">sueños</span>
+      </h1>
+
+      <p class="max-w-xl font-work-sans text-white/80 text-pretty">
+        Más de <span class="text-white font-medium">20 años</span> de confianza y
+        miles de ganadores en el Valle. Participa en los sorteos más espectaculares
+        con absoluta transparencia.
+      </p>
+
+      <div
+        class="flex flex-col space-y-2 sm:flex-row sm:space-x-3 sm:space-y-0"
+      >
+        <a href="/sorteos" class="primary-button group gap-2 pl-9 pr-7">
+          <span>Ver Sorteos</span>
+          <img
+            src="/icons/arrow-right.svg"
+            alt="Arrow Right"
+            class="size-4 transition-transform duration-300 group-hover:translate-x-1"
+          />
+        </a>
+
+        <a href="/vendedor" class="secondary-button"> Ser Vendedor </a>
+      </div>
     </div>
   </div>
-</header>
+</main>
+
+<script>
+  const checkHeroLoad = () => {
+    const img = document.getElementById("hero-image") as HTMLImageElement;
+    if (!img) return;
+
+    if (img.complete) {
+      document.documentElement.classList.remove("preload-hero");
+      document.documentElement.classList.add("hero-loaded");
+    } else {
+      img.addEventListener(
+        "load",
+        () => {
+          document.documentElement.classList.remove("preload-hero");
+          document.documentElement.classList.add("hero-loaded");
+        },
+        { once: true },
+      );
+    }
+  };
+
+  const updateImage = () => {
+    const img = document.getElementById("hero-image") as HTMLImageElement;
+    const overlay = document.getElementById("night-overlay");
+    if (!img || !overlay) return;
+
+    const hour = parseInt(
+      new Intl.DateTimeFormat("en-US", {
+        timeZone: "America/Bogota",
+        hour: "numeric",
+        hour12: false,
+      }).format(new Date()),
+    );
+
+    const isNight = hour >= 18 || hour < 6;
+    const targetSrc = isNight ? img.dataset.night : img.dataset.day;
+    const dayShadow = document.getElementById("day-shadow");
+
+    if (isNight) {
+      img.classList.remove("is-day");
+      dayShadow?.classList.replace("opacity-100", "opacity-0");
+    } else {
+      img.classList.add("is-day");
+      dayShadow?.classList.replace("opacity-0", "opacity-100");
+    }
+
+    if (img.src !== targetSrc && targetSrc) {
+      img.classList.add("opacity-0");
+      setTimeout(() => {
+        img.src = targetSrc;
+        isNight
+          ? overlay.classList.replace("opacity-0", "opacity-100")
+          : overlay.classList.replace("opacity-100", "opacity-0");
+        img.classList.remove("opacity-0");
+      }, 500);
+    }
+  };
+
+  checkHeroLoad();
+  updateImage();
+  setInterval(updateImage, 60000);
+</script>
+
+<style>
+  h1 {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-wrap: balance;
+  }
+
+  #day-shadow {
+    display: none;
+  }
+
+  @media (max-width: 768px) {
+    #day-shadow {
+      display: block;
+    }
+    #hero-image.is-day {
+      animation: mobilePan 60s ease-in-out infinite;
+    }
+    h1 {
+      font-size: clamp(3rem, 12vw, 4.5rem);
+    }
+  }
+
+  @keyframes mobilePan {
+    0% {
+      object-position: 50% center;
+    }
+    50% {
+      object-position: 75% center;
+    }
+    100% {
+      object-position: 50% center;
+    }
+  }
+
+  @keyframes zoomOutEntrance {
+    0% {
+      opacity: 0;
+      transform: scale(1.1);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  html.preload-hero .hero-entrance {
+    opacity: 0 !important;
+  }
+
+  html.hero-loaded .hero-entrance {
+    /* Combinamos la entrada con la animación de paneo en móvil si es necesario */
+    animation: zoomOutEntrance 2s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+</style>
