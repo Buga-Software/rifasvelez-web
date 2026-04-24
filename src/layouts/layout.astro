@@ -61,6 +61,10 @@ import SchemaSEO from "@components/schema-seo.astro";
     <link rel="preconnect" href="https://res.cloudinary.com" />
     <link rel="dns-prefetch" href="https://res.cloudinary.com" />
     <link rel="preconnect" href="https://www.googletagmanager.com" />
+    
+    <!-- Font Preloads -->
+    <link rel="preload" href="/fonts/syne-variable.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/work-sans-variable.woff2" as="font" type="font/woff2" crossorigin />
 
     <!-- SEO Schema Component -->
     <SchemaSEO
@@ -97,6 +101,30 @@ import SchemaSEO from "@components/schema-seo.astro";
       src="https://www.googletagmanager.com/gtag/js?id=G-LDL8GLXXE6"></script>
 
     <!-- Preload Animation Manager -->
+    <style is:inline>
+      /* Critical CSS to prevent FOUT and implement Linear-style entrance */
+      html.preload-texts h1, 
+      html.preload-texts h2, 
+      html.preload-texts h3, 
+      html.preload-texts h4, 
+      html.preload-texts h5, 
+      html.preload-texts h6, 
+      html.preload-texts p, 
+      html.preload-texts a, 
+      html.preload-texts button, 
+      html.preload-texts li, 
+      html.preload-texts label,
+      html.preload-texts span,
+      html.preload-texts img:not(#hero-image) {
+        opacity: 0;
+      }
+
+      html.preload-texts h1 {
+        opacity: 0.01;
+        filter: blur(12px);
+        transform: translateY(10px);
+      }
+    </style>
     <script is:inline>
       document.documentElement.classList.add("preload-texts", "preload-hero");
 
@@ -104,7 +132,7 @@ import SchemaSEO from "@components/schema-seo.astro";
       const timeout = setTimeout(() => {
         document.documentElement.classList.remove("preload-texts");
         document.documentElement.classList.add("fonts-loaded");
-      }, 6000);
+      }, 4000);
 
       document.fonts.ready.then(() => {
         clearTimeout(timeout);

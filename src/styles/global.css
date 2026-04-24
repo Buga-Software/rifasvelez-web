@@ -47,7 +47,7 @@ img {
   }
 }
 
-html.preload-texts h1, 
+html.preload-texts h1,
 html.preload-texts h2, 
 html.preload-texts h3, 
 html.preload-texts h4, 
@@ -59,8 +59,8 @@ html.preload-texts button,
 html.preload-texts li, 
 html.preload-texts label,
 html.preload-texts span,
-html.preload-texts img {
-  opacity: 0 !important;
+html.preload-texts img:not(#hero-image) {
+  opacity: 0;
   pointer-events: none;
 }
 
@@ -77,7 +77,7 @@ html.fonts-loaded li,
 html.fonts-loaded label,
 html.fonts-loaded span,
 html.fonts-loaded img {
-  animation: textBlurIn 1.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+  animation: textBlurIn 0.8s cubic-bezier(0.19, 1, 0.22, 1) forwards;
 }
 
 @layer components {

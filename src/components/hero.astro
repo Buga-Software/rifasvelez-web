@@ -9,13 +9,18 @@ const hour = parseInt(colDate);
 const isNight = hour >= 18 || hour < 6;
 
 const dayImage =
-  "https://res.cloudinary.com/dmr7qtfkk/image/upload/v1775234910/1_w4k7do.png";
+  "https://res.cloudinary.com/dmr7qtfkk/image/upload/f_auto,q_auto/v1775234910/1_w4k7do.png";
 const nightImage =
-  "https://res.cloudinary.com/dmr7qtfkk/image/upload/v1775234910/2_cojxh2.png";
+  "https://res.cloudinary.com/dmr7qtfkk/image/upload/f_auto,q_auto/v1775234910/2_cojxh2.png";
+
+// Optimized versions for different screens
+const dayMobile = dayImage.replace('upload/', 'upload/w_800/');
+const nightMobile = nightImage.replace('upload/', 'upload/w_800/');
+
 const initialImage = isNight ? nightImage : dayImage;
 ---
 
-<script is:inline define:vars={{ dayImage, nightImage }}>
+<script is:inline define:vars={{ dayImage, nightImage, dayMobile, nightMobile }}>
   // Preload correct image immediately to avoid flicker
   (function () {
     const hour = parseInt(
@@ -26,7 +31,12 @@ const initialImage = isNight ? nightImage : dayImage;
       }).format(new Date()),
     );
     const isNight = hour >= 18 || hour < 6;
-    const targetSrc = isNight ? nightImage : dayImage;
+    const isMobile = window.innerWidth < 768;
+    
+    let targetSrc = isNight ? nightImage : dayImage;
+    if (isMobile) {
+      targetSrc = isNight ? nightMobile : dayMobile;
+    }
 
     const link = document.createElement("link");
     link.rel = "preload";
@@ -42,8 +52,12 @@ const initialImage = isNight ? nightImage : dayImage;
     <img
       id="hero-image"
       src={initialImage}
+      srcset={`${isNight ? nightMobile : dayMobile} 800w, ${isNight ? nightImage : dayImage} 1920w`}
+      sizes="100vw"
       data-day={dayImage}
       data-night={nightImage}
+      data-day-mobile={dayMobile}
+      data-night-mobile={nightMobile}
       alt="Vélez la Tradicional"
       class="hero-entrance pointer-events-none h-full w-full select-none object-cover transition-opacity duration-1000 ease-in-out"
       loading="eager"
@@ -140,7 +154,10 @@ const initialImage = isNight ? nightImage : dayImage;
     );
 
     const isNight = hour >= 18 || hour < 6;
+    const isMobile = window.innerWidth < 768;
     const targetSrc = (isNight ? img.dataset.night : img.dataset.day) || "";
+    const targetMobile = (isNight ? img.dataset.nightMobile : img.dataset.dayMobile) || "";
+    const targetSrcset = `${targetMobile} 800w, ${targetSrc} 1920w`;
 
     if (isNight) {
       img.classList.remove("is-day");
@@ -153,6 +170,7 @@ const initialImage = isNight ? nightImage : dayImage;
     if (img.src !== targetSrc && targetSrc) {
       if (firstCheck) {
         // Immediate swap on first load to prevent flash
+        img.srcset = targetSrcset;
         img.src = targetSrc;
         isNight
           ? overlay.classList.replace("opacity-0", "opacity-100")
@@ -161,6 +179,7 @@ const initialImage = isNight ? nightImage : dayImage;
         // Smooth transition for subsequent updates
         img.classList.add("opacity-0");
         setTimeout(() => {
+          img.srcset = targetSrcset;
           img.src = targetSrc;
           isNight
             ? overlay.classList.replace("opacity-0", "opacity-100")
