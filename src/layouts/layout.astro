@@ -60,6 +60,7 @@ import SchemaSEO from "@components/schema-seo.astro";
     <!-- Preconnect to external domains -->
     <link rel="preconnect" href="https://res.cloudinary.com" />
     <link rel="dns-prefetch" href="https://res.cloudinary.com" />
+    <link rel="preconnect" href="https://www.googletagmanager.com" />
 
     <!-- SEO Schema Component -->
     <SchemaSEO
@@ -70,18 +71,30 @@ import SchemaSEO from "@components/schema-seo.astro";
     />
 
     <!-- Google Analytics (via partytown) -->
-    <script
-      type="text/partytown"
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=G-LDL8GLXXE6"></script>
-    <script type="text/partytown">
+    <script is:inline>
       window.dataLayer = window.dataLayer || [];
       function gtag() {
         dataLayer.push(arguments);
       }
       gtag("js", new Date());
       gtag("config", "G-LDL8GLXXE6");
+
+      // Global WhatsApp click tracking
+      document.addEventListener("click", (e) => {
+        const target = e.target.closest('a[href*="wa.me"]');
+        if (target) {
+          gtag("event", "whatsapp_contact", {
+            event_category: "engagement",
+            event_label: "WhatsApp Click",
+            link_url: target.href,
+          });
+        }
+      });
     </script>
+    <script
+      type="text/partytown"
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-LDL8GLXXE6"></script>
 
     <!-- Preload Animation Manager -->
     <script is:inline>
