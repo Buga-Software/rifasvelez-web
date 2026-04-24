@@ -12,10 +12,10 @@ const layers = [
 ---
 
 <header
-  class="fixed top-0 left-0 right-0 z-[1000] h-24 flex items-center justify-between lg:px-32 px-6 text-white"
+  class="fixed top-0 left-0 right-0 z-1000 h-24 flex items-center justify-between lg:px-32 px-6 text-white"
 >
   <div
-    class="absolute inset-0 pointer-events-none grid h-[7rem] top-0 overflow-hidden"
+    class="absolute inset-0 pointer-events-none grid h-28 top-0 overflow-hidden"
   >
     {
       layers.map(({ blur, mask }) => (
@@ -32,12 +32,12 @@ const layers = [
     }
 
     <div
-      class="col-start-1 row-start-1 bg-gradient-to-b from-black/20 via-black/20 to-transparent"
+      class="col-start-1 row-start-1 bg-linear-to-b from-black/20 via-black/20 to-transparent"
     >
     </div>
   </div>
 
-  <div class="relative flex-shrink-0">
+  <div class="relative shrink-0">
     <a href="/" class="flex items-center select-none">
       <img src="/assets/velez.png" alt="Vélez" class="h-14 w-auto" />
     </a>

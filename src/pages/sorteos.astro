@@ -2,6 +2,7 @@
 import Layout from "@/layouts/layout.astro";
 import Nav from "@/components/nav.astro";
 import WhatsappIcon from "@/components/icons/WhatsappIcon.astro";
+import Countdown from "@/components/react/countdown";
 
 // Interfaces
 export interface Sorteo {
@@ -81,28 +82,8 @@ export const sorteos: Sorteo[] = [
           </div>
 
           <!-- MIDDLE: Countdown integrado -->
-          <div class="raffle-countdown w-full px-6 py-6 md:py-8 bg-gray-50/50 border-b border-gray-100" data-target-date={sorteo.fecha}>
-            <div class="flex items-center justify-between gap-2 max-w-sm mx-auto">
-              <div class="flex flex-col items-center">
-                <span class="count-days text-xl sm:text-3xl font-syne font-bold text-gray-800 tracking-tight">00</span>
-                <span class="text-[9px] text-gray-400 font-bold uppercase mt-1 tracking-widest">Días</span>
-              </div>
-              <span class="text-gray-300 font-light text-xl sm:text-2xl mb-1">:</span>
-              <div class="flex flex-col items-center">
-                <span class="count-hours text-xl sm:text-3xl font-syne font-bold text-gray-800 tracking-tight">00</span>
-                <span class="text-[9px] text-gray-400 font-bold uppercase mt-1 tracking-widest">Hrs</span>
-              </div>
-              <span class="text-gray-300 font-light text-xl sm:text-2xl mb-1">:</span>
-              <div class="flex flex-col items-center">
-                <span class="count-minutes text-xl sm:text-3xl font-syne font-bold text-gray-800 tracking-tight">00</span>
-                <span class="text-[9px] text-gray-400 font-bold uppercase mt-1 tracking-widest">Min</span>
-              </div>
-              <span class="text-gray-300 font-light text-xl sm:text-2xl mb-1">:</span>
-              <div class="flex flex-col items-center">
-                <span class="count-seconds text-xl sm:text-3xl font-syne font-bold text-pink-500 tracking-tight">00</span>
-                <span class="text-[9px] text-pink-400 font-bold uppercase mt-1 tracking-widest">Seg</span>
-              </div>
-            </div>
+          <div class="w-full px-6 py-6 md:py-8 bg-gray-50/50 border-b border-gray-100">
+            <Countdown targetDate={sorteo.fecha} variant="compact" client:load />
           </div>
 
           <!-- BOTTOM: Botón de Acción -->
@@ -125,47 +106,3 @@ export const sorteos: Sorteo[] = [
     <div class="h-[900px] md:h-[400px] w-full pointer-events-none" aria-hidden="true"></div>
   </main>
 </Layout>
-
-<script>
-  const updateCountdowns = () => {
-    const countdowns = document.querySelectorAll('.raffle-countdown');
-    const now = new Date().getTime();
-    
-    countdowns.forEach(cnt => {
-      let targetDateStr = cnt.getAttribute('data-target-date');
-      if(!targetDateStr) return;
-      
-      let targetDate = new Date(targetDateStr).getTime();
-      let distance = targetDate - now;
-      
-      // Auto-refresh a año futuro si ya pasó (Para la demo del sitio)
-      if (distance < 0) {
-        const currentYear = new Date().getFullYear();
-        const fallbackRegex = new RegExp(`\\d{4}`);
-        const newStr = targetDateStr.replace(fallbackRegex, (currentYear + 1).toString());
-        targetDate = new Date(newStr).getTime();
-        distance = targetDate - now;
-      }
-      
-      if (distance < 0) return;
-      
-      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-      
-      const setTime = (selector: string, val: number) => {
-        const el = cnt.querySelector(selector);
-        if(el) el.textContent = val.toString().padStart(2, '0');
-      };
-
-      setTime('.count-days', days);
-      setTime('.count-hours', hours);
-      setTime('.count-minutes', minutes);
-      setTime('.count-seconds', seconds);
-    });
-  };
-
-  updateCountdowns();
-  setInterval(updateCountdowns, 1000);
-</script>

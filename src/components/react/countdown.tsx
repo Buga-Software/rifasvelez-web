@@ -8,109 +8,141 @@ interface TimeLeft {
 }
 
 interface CountdownProps {
-  targetDate: string | Date;
-  title?: string;
+  targetDate: string;
+  variant?: "big" | "compact";
   className?: string;
 }
 
 const Countdown: React.FC<CountdownProps> = ({
   targetDate,
-  title = "Tiempo restante para el sorteo",
+  variant = "big",
   className = "",
 }) => {
-  const [timeLeft, setTimeLeft] = useState<TimeLeft>({
-    days: 0,
-    hours: 0,
-    minutes: 0,
-    seconds: 0,
-  });
+  const getInitialTime = () => {
+    let finalTargetDateStr = targetDate;
+    let target = new Date(finalTargetDateStr).getTime();
+    const now = Date.now();
 
-  const [finished, setFinished] = useState(false);
+    if (target - now < 0) {
+      const currentYear = new Date().getFullYear();
+      finalTargetDateStr = targetDate.replace(/\d{4}/, (currentYear + 1).toString());
+      target = new Date(finalTargetDateStr).getTime();
+    }
+
+    const distance = target - now;
+    if (distance <= 0) return { days: 0, hours: 0, minutes: 0, seconds: 0 };
+
+    return {
+      days: Math.floor(distance / (1000 * 60 * 60 * 24)),
+      hours: Math.floor((distance / (1000 * 60 * 60)) % 24),
+      minutes: Math.floor((distance / 1000 / 60) % 60),
+      seconds: Math.floor((distance / 1000) % 60),
+    };
+  };
+
+  const [timeLeft, setTimeLeft] = useState<TimeLeft>(getInitialTime());
 
   useEffect(() => {
-    const target =
-      typeof targetDate === "string"
-        ? new Date(targetDate).getTime()
-        : targetDate.getTime();
+    let finalTargetDateStr = targetDate;
+    let target = new Date(finalTargetDateStr).getTime();
+    const now = Date.now();
+
+    if (target - now < 0) {
+      const currentYear = new Date().getFullYear();
+      finalTargetDateStr = targetDate.replace(/\d{4}/, (currentYear + 1).toString());
+      target = new Date(finalTargetDateStr).getTime();
+    }
 
     function updateCountdown() {
       const now = Date.now();
       const distance = target - now;
 
       if (distance <= 0) {
-        setFinished(true);
-        clearInterval(timer);
+        setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
         return;
       }
 
-      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((distance / (1000 * 60 * 60)) % 24);
-      const minutes = Math.floor((distance / 1000 / 60) % 60);
-      const seconds = Math.floor((distance / 1000) % 60);
-
-      setTimeLeft({ days, hours, minutes, seconds });
+      setTimeLeft({
+        days: Math.floor(distance / (1000 * 60 * 60 * 24)),
+        hours: Math.floor((distance / (1000 * 60 * 60)) % 24),
+        minutes: Math.floor((distance / 1000 / 60) % 60),
+        seconds: Math.floor((distance / 1000) % 60),
+      });
     }
 
-    updateCountdown();
     const timer = setInterval(updateCountdown, 1000);
     return () => clearInterval(timer);
   }, [targetDate]);
 
-  if (finished) {
+  const pad = (n: number) => n.toString().padStart(2, "0");
+
+  if (variant === "compact") {
     return (
-      <div
-        className={`bg-[var(--primary)]/10 text-[var(--primary)] rounded-xl px-6 py-4 text-center ${className}`}
-      >
-        <h3 className="text-xs md:text-sm font-semibold uppercase tracking-wide">
-          {title}
-        </h3>
-        <p className="text-xl font-bold mt-2">
-          🎉 ¡Sorteo en curso o ya realizado!
-        </p>
+      <div className={`flex items-center justify-between gap-2 max-w-sm mx-auto ${className}`}>
+        <div className="flex flex-col items-center">
+          <span className="text-xl sm:text-3xl font-syne font-bold text-gray-800 tracking-tight">
+            {pad(timeLeft.days)}
+          </span>
+          <span className="text-[9px] text-gray-400 font-bold uppercase mt-1 tracking-widest">Días</span>
+        </div>
+        <span className="text-gray-300 font-light text-xl sm:text-2xl mb-1">:</span>
+        
+        <div className="flex flex-col items-center">
+          <span className="text-xl sm:text-3xl font-syne font-bold text-gray-800 tracking-tight">
+            {pad(timeLeft.hours)}
+          </span>
+          <span className="text-[9px] text-gray-400 font-bold uppercase mt-1 tracking-widest">Hrs</span>
+        </div>
+        <span className="text-gray-300 font-light text-xl sm:text-2xl mb-1">:</span>
+
+        <div className="flex flex-col items-center">
+          <span className="text-xl sm:text-3xl font-syne font-bold text-gray-800 tracking-tight">
+            {pad(timeLeft.minutes)}
+          </span>
+          <span className="text-[9px] text-gray-400 font-bold uppercase mt-1 tracking-widest">Min</span>
+        </div>
+        <span className="text-gray-300 font-light text-xl sm:text-2xl mb-1">:</span>
+
+        <div className="flex flex-col items-center">
+          <span className="text-xl sm:text-3xl font-syne font-bold text-pink-500 tracking-tight">
+            {pad(timeLeft.seconds)}
+          </span>
+          <span className="text-[9px] text-pink-400 font-bold uppercase mt-1 tracking-widest">Seg</span>
+        </div>
       </div>
     );
   }
 
+  // Default: BIG variant (from nextRaffle.astro)
   return (
-    <div
-      className={`inline-block rounded-2xl bg-[var(--primary)]/10 text-[var(--primary)] px-8 py-4 text-center ${className}`}
-    >
-      <h3 className="text-xs md:text-sm font-semibold uppercase tracking-wide mb-3">
-        {title}
-      </h3>
-
-      <div className="flex justify-center md:justify-evenly gap-4 font-bold">
-        {/* Bloque DÍAS */}
-        <div className="flex flex-col items-center">
-          <span className="text-2xl md:text-3xl">
-            {timeLeft.days}
-          </span>
-          <span className="text-xs md:text-base">días</span>
-        </div>
-        {/* Bloque HORAS */}
-        <div className="flex flex-col items-center">
-          <span className="text-2xl md:text-3xl">
-            {timeLeft.hours.toString().padStart(2, "0")}
-          </span>
-          <span className="text-xs md:text-base">horas</span>
-        </div>
-        {/* Bloque MINUTOS */}
-        <div className="flex flex-col items-center">
-          <span className="text-2xl md:text-3xl">
-            {timeLeft.minutes.toString().padStart(2, "0")}
-          </span>
-          <span className="text-xs md:text-base">minutos</span>
-        </div>
-        {/* Bloque SEGUNDOS */}
-        <div className="flex flex-col items-center">
-          <span className="text-2xl md:text-3xl">
-            {timeLeft.seconds.toString().padStart(2, "0")}
-          </span>
-          <span className="text-xs md:text-base">segundos</span>
-        </div>
+    <div className={`grid grid-cols-4 gap-3 py-6 border-y border-gray-200 ${className}`}>
+      <div className="flex flex-col items-center">
+        <span className="text-4xl md:text-5xl font-work-sans font-bold text-gray-900">
+          {pad(timeLeft.days)}
+        </span>
+        <span className="text-[10px] md:text-xs font-work-sans text-gray-500 uppercase mt-2">Días</span>
+      </div>
+      <div className="flex flex-col items-center">
+        <span className="text-4xl md:text-5xl font-work-sans font-bold text-gray-900">
+          {pad(timeLeft.hours)}
+        </span>
+        <span className="text-[10px] md:text-xs font-work-sans text-gray-500 uppercase mt-2">Horas</span>
+      </div>
+      <div className="flex flex-col items-center">
+        <span className="text-4xl md:text-5xl font-work-sans font-bold text-gray-900">
+          {pad(timeLeft.minutes)}
+        </span>
+        <span className="text-[10px] md:text-xs font-work-sans text-gray-500 uppercase mt-2">Minutos</span>
+      </div>
+      <div className="flex flex-col items-center">
+        <span className="text-4xl md:text-5xl font-work-sans font-bold text-pink-500">
+          {pad(timeLeft.seconds)}
+        </span>
+        <span className="text-[10px] md:text-xs font-work-sans text-pink-600 uppercase mt-2">Segundos</span>
       </div>
     </div>
   );
 };
 
 export default Countdown;
+

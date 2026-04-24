@@ -15,6 +15,28 @@ const nightImage =
 const initialImage = isNight ? nightImage : dayImage;
 ---
 
+<script is:inline define:vars={{ dayImage, nightImage }}>
+  // Preload correct image immediately to avoid flicker
+  (function () {
+    const hour = parseInt(
+      new Intl.DateTimeFormat("en-US", {
+        timeZone: "America/Bogota",
+        hour: "numeric",
+        hour12: false,
+      }).format(new Date()),
+    );
+    const isNight = hour >= 18 || hour < 6;
+    const targetSrc = isNight ? nightImage : dayImage;
+
+    const link = document.createElement("link");
+    link.rel = "preload";
+    link.as = "image";
+    link.href = targetSrc;
+    link.fetchPriority = "high";
+    document.head.appendChild(link);
+  })();
+</script>
+
 <main class="sticky top-0 z-0 h-screen w-full overflow-hidden bg-black">
   <picture>
     <img
@@ -30,7 +52,7 @@ const initialImage = isNight ? nightImage : dayImage;
   </picture>
 
   <div
-    class="pointer-events-none absolute inset-0 bg-gradient-to-tr from-black/90 via-black/20 to-transparent"
+    class="pointer-events-none absolute inset-0 bg-linear-to-tr from-black/90 via-black/20 to-transparent"
   >
   </div>
 
@@ -82,6 +104,8 @@ const initialImage = isNight ? nightImage : dayImage;
 </main>
 
 <script>
+  let firstCheck = true;
+
   const checkHeroLoad = () => {
     const img = document.getElementById("hero-image") as HTMLImageElement;
     if (!img) return;
@@ -104,6 +128,7 @@ const initialImage = isNight ? nightImage : dayImage;
   const updateImage = () => {
     const img = document.getElementById("hero-image") as HTMLImageElement;
     const overlay = document.getElementById("night-overlay");
+    const dayShadow = document.getElementById("day-shadow");
     if (!img || !overlay) return;
 
     const hour = parseInt(
@@ -115,8 +140,7 @@ const initialImage = isNight ? nightImage : dayImage;
     );
 
     const isNight = hour >= 18 || hour < 6;
-    const targetSrc = isNight ? img.dataset.night : img.dataset.day;
-    const dayShadow = document.getElementById("day-shadow");
+    const targetSrc = (isNight ? img.dataset.night : img.dataset.day) || "";
 
     if (isNight) {
       img.classList.remove("is-day");
@@ -127,15 +151,25 @@ const initialImage = isNight ? nightImage : dayImage;
     }
 
     if (img.src !== targetSrc && targetSrc) {
-      img.classList.add("opacity-0");
-      setTimeout(() => {
+      if (firstCheck) {
+        // Immediate swap on first load to prevent flash
         img.src = targetSrc;
         isNight
           ? overlay.classList.replace("opacity-0", "opacity-100")
           : overlay.classList.replace("opacity-100", "opacity-0");
-        img.classList.remove("opacity-0");
-      }, 500);
+      } else {
+        // Smooth transition for subsequent updates
+        img.classList.add("opacity-0");
+        setTimeout(() => {
+          img.src = targetSrc;
+          isNight
+            ? overlay.classList.replace("opacity-0", "opacity-100")
+            : overlay.classList.replace("opacity-100", "opacity-0");
+          img.classList.remove("opacity-0");
+        }, 500);
+      }
     }
+    firstCheck = false;
   };
 
   checkHeroLoad();

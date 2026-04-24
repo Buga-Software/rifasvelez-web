@@ -1,3 +1,7 @@
+---
+import Countdown from "./react/countdown";
+---
+
 <section
   id="proximo-sorteo"
   class="relative pt-12 md:pt-36 pb-24 px-6 md:px-20 overflow-hidden bg-[#f6f7fa] z-10 shadow-t-[0_-20px_50px_rgba(0,0,0,0.3)] rounded-t-4xl"
@@ -17,7 +21,7 @@
     >
       <div
         id="tilt-card"
-        class="relative w-full rounded-[2rem] overflow-hidden shadow-[0_20px_50px_rgba(236,72,153,0.15)] ring-1 ring-gray-200 bg-gray-50 transform-gpu will-change-transform"
+        class="relative w-full rounded-4xl overflow-hidden shadow-[0_20px_50px_rgba(236,72,153,0.15)] ring-1 ring-gray-200 bg-gray-50 transform-gpu will-change-transform"
         style="transform-style: preserve-3d; transition: transform 0.6s ease-out;"
       >
         <img
@@ -28,7 +32,7 @@
         />
         <div
           id="tilt-glare"
-          class="pointer-events-none absolute inset-0 bg-gradient-to-tr from-white/0 via-white/10 to-white/0 opacity-0 transition-opacity duration-300 mix-blend-overlay"
+          class="pointer-events-none absolute inset-0 bg-linear-to-tr from-white/0 via-white/10 to-white/0 opacity-0 transition-opacity duration-300 mix-blend-overlay"
         >
         </div>
       </div>
@@ -47,7 +51,7 @@
         >
           Nuestro <br />
           <span
-            class="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-pink-600"
+            class="text-transparent bg-clip-text bg-linear-to-r from-pink-500 to-pink-600"
             >Próximo Sorteo</span
           >
         </h2>
@@ -61,88 +65,12 @@
         sueños y disfrutarla con toda tu familia.
       </p>
 
-      <div class="grid grid-cols-4 gap-3 py-6 border-y border-gray-200">
-        <div class="flex flex-col items-center">
-          <span
-            id="countdown-days"
-            class="text-4xl md:text-5xl font-work-sans font-bold text-gray-900"
-            >00</span
-          >
-          <span
-            class="text-[10px] md:text-xs font-work-sans text-gray-500 uppercase mt-2"
-            >Días</span
-          >
-        </div>
-        <div class="flex flex-col items-center">
-          <span
-            id="countdown-hours"
-            class="text-4xl md:text-5xl font-work-sans font-bold text-gray-900"
-            >00</span
-          >
-          <span
-            class="text-[10px] md:text-xs font-work-sans text-gray-500 uppercase mt-2"
-            >Horas</span
-          >
-        </div>
-        <div class="flex flex-col items-center">
-          <span
-            id="countdown-minutes"
-            class="text-4xl md:text-5xl font-work-sans font-bold text-gray-900"
-            >00</span
-          >
-          <span
-            class="text-[10px] md:text-xs font-work-sans text-gray-500 uppercase mt-2"
-            >Minutos</span
-          >
-        </div>
-        <div class="flex flex-col items-center">
-          <span
-            id="countdown-seconds"
-            class="text-4xl md:text-5xl font-work-sans font-bold text-pink-500"
-            >00</span
-          >
-          <span
-            class="text-[10px] md:text-xs font-work-sans text-pink-600 uppercase mt-2"
-            >Segundos</span
-          >
-        </div>
-      </div>
+      <Countdown targetDate="June 20, 2026 22:30:00" client:load />
     </div>
   </div>
 </section>
 
-
-
 <script>
-  // --- CONTADOR ---
-  const targetDate = new Date("June 20, 2026 22:30:00").getTime();
-  const updateCountdown = () => {
-    const now = Date.now();
-    const distance = targetDate - now;
-    const get = (id: string) => document.getElementById(id);
-    if (distance < 0) return;
-    get("countdown-days")!.textContent = Math.floor(distance / 86400000)
-      .toString()
-      .padStart(2, "0");
-    get("countdown-hours")!.textContent = Math.floor(
-      (distance % 86400000) / 3600000,
-    )
-      .toString()
-      .padStart(2, "0");
-    get("countdown-minutes")!.textContent = Math.floor(
-      (distance % 3600000) / 60000,
-    )
-      .toString()
-      .padStart(2, "0");
-    get("countdown-seconds")!.textContent = Math.floor(
-      (distance % 60000) / 1000,
-    )
-      .toString()
-      .padStart(2, "0");
-  };
-  updateCountdown();
-  setInterval(updateCountdown, 1000);
-
   // --- EFECTO 3D (sin cambios) ---
   const hitbox = document.getElementById("tilt-hitbox")!;
   const card = document.getElementById("tilt-card")!;
@@ -165,8 +93,6 @@
     card.style.transform = "rotateX(0deg) rotateY(0deg) scale3d(1,1,1)";
     glare.style.opacity = "0";
   });
-
-
 </script>
 
 <!-- scroll snap (sin cambios) -->
