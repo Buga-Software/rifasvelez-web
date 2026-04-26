@@ -5,7 +5,6 @@ import facebookIcon from "@public/icons/facebook.svg";
 import instagramIcon from "@public/icons/instagram.svg";
 import whatsappIcon from "@public/icons/whatsapp.svg";
 import bugaIcon from "@public/bugasoftware-favicon.svg";
-import { Image } from "astro:assets";
 
 const socialMedia = [
   {
@@ -36,8 +35,8 @@ const socialMedia = [
       <div
         class="flex flex-col items-center md:items-start text-center md:text-left"
       >
-        <Image
-          src={logo}
+        <img
+          src={logo.src}
           alt="Logo Velez"
           class="h-16 md:h-20 mb-3 object-contain"
         />
