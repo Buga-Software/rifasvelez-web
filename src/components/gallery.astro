@@ -1,18 +1,25 @@
 ---
 const response = await fetch(
-  "https://res.cloudinary.com/dmr7qtfkk/image/list/v1775409509/ganadores.json",
+  "https://res.cloudinary.com/dmr7qtfkk/image/list/ganadores.json",
+  { cache: 'no-store' } // Evita caché en entornos SSR
 ).catch((e) => null);
 
 let images = [];
+
 if (response && response.ok) {
   const data = await response.json();
-  images = data.resources ? data.resources.map((foto: any) => ({
-    id: foto.public_id,
-    // Eliminamos c_fill,w_800,h_800 para usar el tamaño original
-    src: `https://res.cloudinary.com/dmr7qtfkk/image/upload/f_auto,q_auto/v1775409509/${foto.public_id}.${foto.format}`,
-    fullSrc: `https://res.cloudinary.com/dmr7qtfkk/image/upload/f_auto,q_auto/v1775409509/${foto.public_id}.${foto.format}`,
-    alt: "Feliz Ganador Rifas Vélez"
-  })) : [];
+  
+  images = data.resources ? data.resources.map((foto: any) => {
+    const version = foto.version || Date.now();
+    const baseUrl = `https://res.cloudinary.com/dmr7qtfkk/image/upload/f_auto,q_auto/v${version}/${foto.public_id}.${foto.format}`;
+
+    return {
+      id: foto.public_id,
+      src: baseUrl,
+      fullSrc: baseUrl,
+      alt: "Feliz Ganador Rifas Vélez"
+    };
+  }) : [];
 }
 ---
 
@@ -43,7 +50,6 @@ if (response && response.ok) {
   import { Fancybox } from '@fancyapps/ui/dist/fancybox/';
   import '@fancyapps/ui/dist/fancybox/fancybox.css';
 
-  // Configuración de Fancybox
   Fancybox.bind('[data-fancybox]', {
     backdropClick: "close",
     Hash: false,
@@ -55,8 +61,8 @@ if (response && response.ok) {
     },
   });
 
-  // Asegurar que las imágenes que ya están en caché se muestren si el evento onload no dispara
-  document.addEventListener("DOMContentLoaded", () => {
+  // Manejo de imágenes ya cargadas (caché del navegador)
+  const handleCachedImages = () => {
     const imgs = document.querySelectorAll('.gallery-img');
     imgs.forEach((img) => {
       if ((img as HTMLImageElement).complete) {
@@ -64,5 +70,8 @@ if (response && response.ok) {
         img.parentElement?.classList.remove('animate-pulse');
       }
     });
-  });
+  };
+
+  document.addEventListener("DOMContentLoaded", handleCachedImages);
+  handleCachedImages();
 </script>
