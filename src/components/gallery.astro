@@ -26,8 +26,9 @@ try {
   const data = await response.json();
   
   images = data.resources ? data.resources.map((foto: any) => {
-    // 1. Validate version (must be numeric)
-    const version = /^\d+$/.test(String(foto.version)) ? String(foto.version) : Date.now();
+    // 1. Validate version (must be numeric, otherwise omit from URL)
+    const hasValidVersion = /^\d+$/.test(String(foto.version));
+    const versionSegment = hasValidVersion ? `v${foto.version}/` : '';
     
     // 2. Sanitize public_id (prevent path traversal and injection)
     const rawPublicId = String(foto.public_id || '');
@@ -39,7 +40,7 @@ try {
     const safeFormat = rawFormat.replace(/[^a-zA-Z0-9]/g, '');
     const encodedFormat = encodeURIComponent(safeFormat);
 
-    const baseUrl = `https://res.cloudinary.com/dmr7qtfkk/image/upload/f_auto,q_auto/v${version}/${encodedPublicId}.${encodedFormat}`;
+    const baseUrl = `https://res.cloudinary.com/dmr7qtfkk/image/upload/f_auto,q_auto/${versionSegment}${encodedPublicId}.${encodedFormat}`;
     
     // 4. Extract Cloudinary metadata (if it exists) and sanitize against DOM XSS
     const rawCaption = foto.context?.custom?.caption || "Feliz Ganador Rifas Vélez";
