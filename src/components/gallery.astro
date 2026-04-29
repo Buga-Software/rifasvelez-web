@@ -1,7 +1,18 @@
 ---
+// Sanitizes text by escaping special HTML characters to prevent XSS
+// when client libraries like Fancybox inject text as HTML
+const sanitizeText = (str: string) => {
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+};
+
 const response = await fetch(
   "https://res.cloudinary.com/dmr7qtfkk/image/list/ganadores.json",
-  { cache: 'no-store' } // Evita caché en entornos SSR
+  { cache: 'no-store' } // Avoid cache in SSR environments
 ).catch((e) => null);
 
 let images = [];
@@ -10,14 +21,30 @@ if (response && response.ok) {
   const data = await response.json();
   
   images = data.resources ? data.resources.map((foto: any) => {
-    const version = foto.version || Date.now();
-    const baseUrl = `https://res.cloudinary.com/dmr7qtfkk/image/upload/f_auto,q_auto/v${version}/${foto.public_id}.${foto.format}`;
+    // 1. Validate version (must be numeric)
+    const version = /^\d+$/.test(String(foto.version)) ? String(foto.version) : Date.now();
+    
+    // 2. Sanitize public_id (prevent path traversal and injection)
+    const rawPublicId = String(foto.public_id || '');
+    const safePublicId = rawPublicId.replace(/[^a-zA-Z0-9_\-\/]/g, '');
+    const encodedPublicId = safePublicId.split('/').map(encodeURIComponent).join('/');
+
+    // 3. Sanitize format (alphanumeric only)
+    const rawFormat = String(foto.format || 'jpg');
+    const safeFormat = rawFormat.replace(/[^a-zA-Z0-9]/g, '');
+    const encodedFormat = encodeURIComponent(safeFormat);
+
+    const baseUrl = `https://res.cloudinary.com/dmr7qtfkk/image/upload/f_auto,q_auto/v${version}/${encodedPublicId}.${encodedFormat}`;
+    
+    // 4. Extract Cloudinary metadata (if it exists) and sanitize against DOM XSS
+    const rawCaption = foto.context?.custom?.caption || "Feliz Ganador Rifas Vélez";
+    const safeCaption = sanitizeText(rawCaption);
 
     return {
-      id: foto.public_id,
+      id: safePublicId,
       src: baseUrl,
       fullSrc: baseUrl,
-      alt: "Feliz Ganador Rifas Vélez"
+      alt: safeCaption
     };
   }) : [];
 }
@@ -61,7 +88,7 @@ if (response && response.ok) {
     },
   });
 
-  // Manejo de imágenes ya cargadas (caché del navegador)
+  // Handle already loaded images (browser cache)
   const handleCachedImages = () => {
     const imgs = document.querySelectorAll('.gallery-img');
     imgs.forEach((img) => {
