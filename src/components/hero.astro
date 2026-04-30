@@ -15,28 +15,6 @@ const nightImage =
 const initialImage = isNight ? nightImage : dayImage;
 ---
 
-<script is:inline define:vars={{ dayImage, nightImage }}>
-  // Preload correct image immediately to avoid flicker
-  (function () {
-    const hour = parseInt(
-      new Intl.DateTimeFormat("en-US", {
-        timeZone: "America/Bogota",
-        hour: "numeric",
-        hour12: false,
-      }).format(new Date()),
-    );
-    const isNight = hour >= 18 || hour < 6;
-    const targetSrc = isNight ? nightImage : dayImage;
-
-    const link = document.createElement("link");
-    link.rel = "preload";
-    link.as = "image";
-    link.href = targetSrc;
-    link.fetchPriority = "high";
-    document.head.appendChild(link);
-  })();
-</script>
-
 <main class="sticky top-0 z-0 h-screen w-full overflow-hidden bg-black">
   <picture>
     <img
@@ -86,7 +64,9 @@ const initialImage = isNight ? nightImage : dayImage;
       </p>
 
       <div class="flex flex-col space-y-4">
-        <div class="flex flex-col space-y-2 sm:flex-row sm:space-x-3 sm:space-y-0">
+        <div
+          class="flex flex-col space-y-2 sm:flex-row sm:space-x-3 sm:space-y-0"
+        >
           <a href="/sorteos" class="primary-button group gap-2 pl-9 pr-7">
             <span>Ver Sorteos</span>
             <img
