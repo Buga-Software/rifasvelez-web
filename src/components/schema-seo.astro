@@ -25,8 +25,8 @@ const organizationSchema = {
   description:
     "Empresa de sorteos con más de 20 años de trayectoria en Buga, Colombia",
   url: "https://rifasvelez.com",
-  telephone: "+573169419113",
-  email: "info@rifasvelez.com",
+  telephone: ["+573169419113", "+573168300109"],
+  email: "velezlatradicional@gmail.com",
   areaServed: {
     "@type": "City",
     name: "Buga",
@@ -45,20 +45,35 @@ const organizationSchema = {
     "https://www.instagram.com/velezlatradicional",
   ],
   image: "https://rifasvelez.com/assets/velez.png",
-  priceRange: "$$$",
-  openingHoursSpecification: {
-    "@type": "OpeningHoursSpecification",
-    dayOfWeek: [
-      "Monday",
-      "Tuesday",
-      "Wednesday",
-      "Thursday",
-      "Friday",
-      "Saturday",
-    ],
-    opens: "09:00",
-    closes: "18:00",
-  },
+  priceRange: "$$",
+  openingHoursSpecification: [
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday"
+      ],
+      "opens": "09:00",
+      "closes": "12:00"
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday"
+      ],
+      "opens": "14:00",
+      "closes": "18:00"
+    }
+  ],
 };
 
 const breadcrumbSchema = {

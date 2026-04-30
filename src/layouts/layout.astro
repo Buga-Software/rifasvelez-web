@@ -41,8 +41,8 @@ import SchemaSEO from "@components/schema-seo.astro";
     <meta name="author" content="Velez la Tradicional" />
 
     <!-- Icons & Manifest -->
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="apple-touch-icon" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <meta name="theme-color" content="#EC016D" />
 
     <!-- Open Graph Tags -->
@@ -80,7 +80,8 @@ import SchemaSEO from "@components/schema-seo.astro";
       canonicalUrl={canonicalUrl}
     />
 
-    <!-- Google Analytics (via partytown) -->
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-LDL8GLXXE6"></script>
     <script is:inline>
       window.dataLayer = window.dataLayer || [];
       function gtag() {
@@ -101,10 +102,6 @@ import SchemaSEO from "@components/schema-seo.astro";
         }
       });
     </script>
-    <script
-      type="text/partytown"
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=G-LDL8GLXXE6"></script>
 
     <!-- Preload Animation Manager -->
     <script is:inline>
