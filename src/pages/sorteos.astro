@@ -67,9 +67,8 @@ export const sorteos: Sorteo[] = [
             />
           </div>
 
-          <!-- MIDDLE: Countdown integrado -->
           <div class="w-full px-6 py-6 md:py-8 bg-gray-50/50 border-b border-gray-100">
-            <Countdown targetDate={sorteo.fecha} variant="compact" client:load />
+            <Countdown targetDate={sorteo.fecha} variant="compact" client:visible />
           </div>
 
           <!-- BOTTOM: Botón de Acción -->

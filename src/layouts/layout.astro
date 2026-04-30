@@ -82,30 +82,47 @@ import Nav from "@components/nav.astro";
       canonicalUrl={canonicalUrl}
     />
 
-    <!-- Google Analytics -->
-    <script
-      is:inline
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=G-LDL8GLXXE6"></script>
+    <!-- Google Analytics (Delayed on Interaction) -->
     <script is:inline>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag("js", new Date());
-      gtag("config", "G-LDL8GLXXE6");
+      let gtagLoaded = false;
+      const loadGTM = () => {
+        if (gtagLoaded) return;
+        gtagLoaded = true;
+        
+        // Remove event listeners once triggered
+        ['scroll', 'mousemove', 'touchstart'].forEach(event => 
+          window.removeEventListener(event, loadGTM)
+        );
 
-      // Global WhatsApp click tracking
-      document.addEventListener("click", (e) => {
-        const target = e.target.closest('a[href*="wa.me"]');
-        if (target) {
-          gtag("event", "whatsapp_contact", {
-            event_category: "engagement",
-            event_label: "WhatsApp Click",
-            link_url: target.href,
-          });
-        }
-      });
+        const script = document.createElement('script');
+        script.async = true;
+        script.src = "https://www.googletagmanager.com/gtag/js?id=G-LDL8GLXXE6";
+        document.head.appendChild(script);
+
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        window.gtag = gtag;
+        gtag("js", new Date());
+        gtag("config", "G-LDL8GLXXE6");
+
+        // Global WhatsApp click tracking
+        document.addEventListener("click", (e) => {
+          const target = e.target.closest('a[href*="wa.me"]');
+          if (target) {
+            gtag("event", "whatsapp_contact", {
+              event_category: "engagement",
+              event_label: "WhatsApp Click",
+              link_url: target.href,
+            });
+          }
+        });
+      };
+
+      // Load on first interaction or fallback after 5 seconds
+      ['scroll', 'mousemove', 'touchstart'].forEach(event => 
+        window.addEventListener(event, loadGTM, { once: true })
+      );
+      setTimeout(loadGTM, 2500);
     </script>
 
     <!-- Preload Animation Manager -->
